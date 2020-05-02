@@ -19,15 +19,82 @@
               <p>
               {{ message }}
               </p>
-              <p>
-              Current time: <strong>{{ now | time_normalized }}</strong>
-              </p>
-              <p>
-              Current month: <strong>{{ now | month_name }}</strong>
-              </p>
             </v-card-text>
           </v-card>
         </v-container>
+
+        <v-spacer></v-spacer>
+
+        <v-container>
+          <v-card
+            class="mx-auto"
+            max-width="344"
+            outlined
+          >
+            <v-card-text>
+              <div class="headline mb-1">Controls</div>
+              <p>
+              Current time: <strong>{{ now | time_normalized }}</strong>
+              <br/>
+              Current month: <strong>{{ now | month_name }}</strong>
+              </p>
+
+              <v-row justify="space-around">
+                <v-checkbox
+                  v-model="toggle_hemisphere"
+                  class="mx-2"
+                  label="Northern"
+                  value="N"
+                ></v-checkbox>
+                <v-checkbox
+                  v-model="toggle_hemisphere"
+                  class="mx-2"
+                  label="Southern"
+                  value="S"
+                ></v-checkbox>
+              </v-row>
+
+              <v-row align="center">
+                <v-checkbox
+                  v-model="toggle_lookup_time"
+                  hide-details
+                  class="shrink mr-2 mt-0"
+                ></v-checkbox>
+                <v-text-field
+                  v-model="lookup_time_input"
+                  :disabled="!toggle_lookup_time"
+                  prepend-icon="mdi-clock"
+                  label="Lookup Time"
+                  type="time"
+                  hint="Filter list by lookup time"
+                  persistent-hint
+                >
+                </v-text-field>
+              </v-row>
+
+              <v-row align="center">
+                <v-checkbox
+                  v-model="toggle_group_by"
+                  hide-details
+                  class="shrink mr-2 mt-0"
+                ></v-checkbox>
+                <v-select
+                  v-model="group_by"
+                  :disabled="!toggle_group_by"
+                  :items="group_by_keys"
+                  item-text="label"
+                  item-value="val"
+                  label="Group by"
+                  return-object
+                  hint="Group list by (Shadow size only for fish)"
+                  persistent-hint
+                ></v-select>
+              </v-row>
+
+            </v-card-text>
+          </v-card>
+        </v-container>
+
         <v-container>
           <v-toolbar flat color="primary" dark>
             <v-toolbar-title>Critters</v-toolbar-title>
@@ -41,24 +108,16 @@
             <v-tab key="fish_tab">
               <v-icon left>mdi-fish</v-icon>
             </v-tab>
-            <v-tab key="northern_fish_tab">
+            <v-tab key="filtered_fish_tab">
               <v-icon left>mdi-fish</v-icon>
-              (N)
-            </v-tab>
-            <v-tab key="southern_fish_tab">
-              <v-icon left>mdi-fish</v-icon>
-              (S)
+              <v-icon left>mdi-filter</v-icon>
             </v-tab>
             <v-tab key="bug_tab">
               <v-icon left>mdi-bug</v-icon>
             </v-tab>
-            <v-tab key="northern_bug_tab">
+            <v-tab key="filtered_bug_tab">
               <v-icon left>mdi-bug</v-icon>
-              (N)
-            </v-tab>
-            <v-tab key="southern_bug_tab">
-              <v-icon left>mdi-bug</v-icon>
-              (S)
+              <v-icon left>mdi-filter</v-icon>
             </v-tab>
 
             <v-tab-item key="fish_tab">
@@ -71,23 +130,15 @@
               ></v-data-table>
             </v-tab-item>
 
-            <v-tab-item key="northern_fish_tab">
+            <v-tab-item key="filtered_fish_tab">
               <v-data-table
-                :headers="grouped_fish_headers"
-                :items="northern_fish_data"
+                :headers="fish_headers"
+                :items="filtered_fish_data"
+                :group-by="group_by.val"
                 class="elevation-1"
                 disable-pagination
                 hide-default-footer
-              ></v-data-table>
-            </v-tab-item>
-
-            <v-tab-item key="southern_fish_tab">
-              <v-data-table
-                :headers="grouped_fish_headers"
-                :items="southern_fish_data"
-                class="elevation-1"
-                disable-pagination
-                hide-default-footer
+                show-group-by
               ></v-data-table>
             </v-tab-item>
 
@@ -101,23 +152,15 @@
               ></v-data-table>
             </v-tab-item>
 
-            <v-tab-item key="northern_bug_tab">
+            <v-tab-item key="filtered_bug_tab">
               <v-data-table
-                :headers="grouped_bug_headers"
-                :items="northern_bug_data"
+                :headers="bug_headers"
+                :items="filtered_bug_data"
+                :group-by="group_by.val"
                 class="elevation-1"
                 disable-pagination
                 hide-default-footer
-              ></v-data-table>
-            </v-tab-item>
-
-            <v-tab-item key="southern_bug_tab">
-              <v-data-table
-                :headers="grouped_bug_headers"
-                :items="southern_bug_data"
-                class="elevation-1"
-                disable-pagination
-                hide-default-footer
+                show-group-by
               ></v-data-table>
             </v-tab-item>
 

@@ -36,9 +36,18 @@ var app = new Vue({
     message: 'This is the Animal Crossing: New Horizons complete critters list.',
     now: new Date(),
     tab: null,
+    toggle_lookup_time: false,
+    lookup_time_input: null,
+    lookup_time: null,
+    toggle_hemisphere: ['N','S'],
+    toggle_group_by: false,
+    group_by_keys: [{ label: 'Location', val: 'location' }, { label: 'Shadow Size', val: 'shadow_size' }],
+    group_by: {},
+
     fish_data: [],
     northern_fish_data: [],
     southern_fish_data: [],
+    filtered_fish_data: [],
     fish_headers: [
       {
         text: 'Name',
@@ -53,22 +62,11 @@ var app = new Vue({
       { text: 'Months', value: 'month_names' },
       { text: 'Hemisphere', value: 'hemisphere' },
     ],
-    grouped_fish_headers: [
-      {
-        text: 'Name',
-        align: 'start',
-        sortable: true,
-        value: 'name',
-      },
-      { text: 'Price', value: 'price' },
-      { text: 'Location', value: 'location' },
-      { text: 'Shadow Size', value: 'shadow_size' },
-      { text: 'Time Range', value: 'time' },
-      { text: 'Months', value: 'month_names' },
-    ],
+
     bug_data: [],
     northern_bug_data: [],
     southern_bug_data: [],
+    filtered_bug_data: [],
     bug_headers: [
       {
         text: 'Name',
@@ -82,18 +80,7 @@ var app = new Vue({
       { text: 'Months', value: 'month_names' },
       { text: 'Hemisphere', value: 'hemisphere' },
     ],
-    grouped_bug_headers: [
-      {
-        text: 'Name',
-        align: 'start',
-        sortable: true,
-        value: 'name',
-      },
-      { text: 'Price', value: 'price' },
-      { text: 'Location', value: 'location' },
-      { text: 'Time Range', value: 'time' },
-      { text: 'Months', value: 'month_names' },
-    ],
+
   },
 
   methods: {
@@ -124,6 +111,7 @@ var app = new Vue({
         });
       });
     },
+
     getBugData: function() {
       var vm = this;
       $.ajax({
@@ -151,6 +139,71 @@ var app = new Vue({
         });
       });
     },
+
+    filterData: function(data) {
+      var vm = this;
+      var filter_time = vm.lookup_time ? vm.lookup_time : vm.now;
+      var current_hour = filter_time.getHours();
+      var selected_hemispheres = vm.toggle_hemisphere;
+      return data.filter(function(row) {
+        return row.hours.includes(current_hour) && selected_hemispheres.includes(row.hemisphere);
+      });
+    },
+
+    filterFishData: function() {
+      var vm = this;
+      vm.filtered_fish_data = vm.filterData(vm.fish_data);
+    },
+
+    filterBugData: function() {
+      var vm = this;
+      vm.filtered_bug_data = vm.filterData(vm.bug_data);
+    },
+
+  },
+
+  watch: {
+    fish_data: function(newVal, oldVal) {
+      var vm = this;
+      if (newVal.length > 0) {
+        vm.filterFishData();
+      }
+    },
+
+    bug_data: function(newVal, oldVal) {
+      var vm = this;
+      if (newVal.length > 0) {
+        vm.filterBugData();
+      }
+    },
+
+    lookup_time_input: function(newVal, oldVal) {
+      var vm = this;
+      var today = new Date();
+      var year = today.getFullYear();
+      var month = today.getMonth();
+      var day = today.getDate();
+      var parts = newVal.split(':');
+      var hour = parts[0];
+      var minute = parts[1];
+      vm.lookup_time = new Date(year, month, day, hour, minute, 0);
+      vm.filterFishData();
+      vm.filterBugData();
+    },
+
+    toggle_hemisphere: function(newVal, oldVal) {
+      var vm = this;
+      vm.filterFishData();
+      vm.filterBugData();
+    },
+
+    toggle_group_by: function(newVal, oldVal) {
+      var vm = this;
+      if(!newVal) {
+        vm.group_by = {};
+      }
+    },
+
   },
 
   filters: {
