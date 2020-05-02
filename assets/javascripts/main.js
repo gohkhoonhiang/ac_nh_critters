@@ -14,9 +14,7 @@ var month_names = [
 ];
 
 var convert_months = function(months) {
-  return months.map(function(month) {
-    return month_names[month-1];
-  });
+  return months.map(month => month_names[month-1]);
 };
 
 var normalize_hemisphere = function(hemisphere) {
@@ -127,10 +125,11 @@ var app = new Vue({
     filterData: function(data) {
       var vm = this;
       var filter_time = vm.lookup_time ? vm.lookup_time : vm.now;
+      var current_month = filter_time.getMonth() + 1;
       var current_hour = filter_time.getHours();
       var selected_hemispheres = vm.toggle_hemisphere;
       return data.filter(function(row) {
-        return row.hours.includes(current_hour) && selected_hemispheres.includes(row.hemisphere);
+        return row.months.includes(current_month) && row.hours.includes(current_hour) && selected_hemispheres.includes(row.hemisphere);
       });
     },
 
