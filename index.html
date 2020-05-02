@@ -17,7 +17,7 @@
           >
             <v-card-text>
               <p>
-              {{ message }}
+                This is the Animal Crossing: New Horizons complete critters list. All data are sourced from the <a href="https://animalcrossing.fandom.com/wiki/Animal_Crossing_Wiki">Fandom Wiki</a>
               </p>
             </v-card-text>
           </v-card>
@@ -144,6 +144,10 @@
             </v-tab>
             <v-tab key="bug_tab">
               <v-icon left>mdi-bug</v-icon>
+            </v-tab>
+
+            <v-tab key="help_tab">
+              <v-icon left>mdi-help</v-icon>
             </v-tab>
 
             <v-tab-item key="filtered_fish_tab">
@@ -301,6 +305,46 @@
                   disable-pagination
                   hide-default-footer
                 ></v-data-table>
+              </v-card>
+            </v-tab-item>
+
+            <v-tab-item key="help_tab">
+              <v-card>
+                <v-card-text>
+                  <div class="display-1 text--primary">FAQ</div>
+                </v-card-text>
+                <v-container>
+                  <v-row dense>
+                    <v-col cols="12">
+                      <v-card
+                        color="#FFFAE5"
+                      >
+                        <v-card-title class="headline">What is this site about?</v-card-title>
+                        <v-card-subtitle>
+                          <p>When I first started playing AC:NH, I found myself frequently checking the <a href="https://animalcrossing.fandom.com/wiki/Fish_(New_Horizons)" target="_blank">Fandom fish list</a> at different times of the day to find out what kind of fishes I could get and sell at a good price.</p>
+                          <p>The Fandom page was great, but it lacked certain filtering controls, eg. the current hour's list of fishes.</p>
+                          <p>At first, I downloaded the HTML table, dumped the table on Coda.io, and added some filtering options eg. current time, and some grouping options eg. location + shadow size. The downside is that Coda.io loads quite slowly, and sometimes requires sign-in if my session expired.</p>
+                          <p>The loading speed wasn't the problem, the main problem is the limited controls available for more views. For example, I needed to see what would be the fishes that would be gone in the next month, so that I could try to fish those that I've not donated to the museum ASAP. It wasn't trivial to create this view, because of the more complex checking logic on the available months.</p>
+                          <p>Finally, I've had enough and decided to create a simple website like this one to fulfill all my needs.</p>
+                        </v-card-subtitle>
+                      </v-card>
+                    </v-col>
+                  </v-row>
+
+                  <v-row dense>
+                    <v-col cols="12">
+                      <v-card
+                        color="#FFFAE5"
+                      >
+                        <v-card-title class="headline">Where do you get your data from?</v-card-title>
+                        <v-card-subtitle>
+                          <p>As mentioned in the previous answer, I got my data from the <a href="https://animalcrossing.fandom.com/wiki/Fish_(New_Horizons)" target="_blank">Fandom fish list</a>. The bug list is also from <a href="https://animalcrossing.fandom.com/wiki/Bugs_(New_Horizons)" target="_blank">Fandom.</a></p>
+                          <p>I downloaded the HTML source, normalized some values, eg. converting ✓ to a true value, then imported the normalized data into a Google Sheets. There, I exported the data into CSV format. With a Ruby script, I added the list of months and hours based on the raw data's month columns and time range for each critter, and finally combined both northern and southern hemisphere lists into a single JSON format.</p>
+                        </v-card-subtitle>
+                      </v-card>
+                    </v-col>
+                  </v-row>
+                </v-container>
               </v-card>
             </v-tab-item>
 

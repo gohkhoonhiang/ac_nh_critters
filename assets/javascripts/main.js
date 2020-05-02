@@ -31,7 +31,6 @@ var app = new Vue({
   },
 
   data: {
-    message: 'This is the Animal Crossing: New Horizons complete critters list.',
     now: new Date(),
     tab: null,
     toggle_lookup_time: false,
