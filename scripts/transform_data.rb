@@ -9,7 +9,7 @@ def combined_list(northern_list, southern_list, output)
 
   combined = formatted_northern + formatted_southern
 
-  File.write(output, { data: combined }.to_json)
+  File.write(output, { data: combined.sort_by { |row| row["name"] } }.to_json)
 end
 
 # example
@@ -39,7 +39,7 @@ def format_rows(rows, northern)
   rows.each do |row|
     format_row(row, northern)
   end
-  rows.sort_by { |row| row["name"] }
+  rows
 end
 
 def format_row(row, northern)
