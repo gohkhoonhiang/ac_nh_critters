@@ -9,7 +9,7 @@ def combined_list(northern_list, southern_list, output)
 
   combined = formatted_northern + formatted_southern
 
-  File.write(output, combined.to_json)
+  File.write(output, { data: combined }.to_json)
 end
 
 # example
