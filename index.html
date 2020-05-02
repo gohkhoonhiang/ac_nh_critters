@@ -112,6 +112,14 @@
               <v-icon left>mdi-fish</v-icon>
               <v-icon left>mdi-filter</v-icon>
             </v-tab>
+            <v-tab key="outgoing_fish_tab">
+              <v-icon left>mdi-fish</v-icon>
+              <v-icon left>mdi-arrow-right-bold</v-icon>
+            </v-tab>
+            <v-tab key="incoming_fish_tab">
+              <v-icon left>mdi-fish</v-icon>
+              <v-icon left>mdi-arrow-left-bold</v-icon>
+            </v-tab>
             <v-tab key="bug_tab">
               <v-icon left>mdi-bug</v-icon>
             </v-tab>
@@ -119,49 +127,137 @@
               <v-icon left>mdi-bug</v-icon>
               <v-icon left>mdi-filter</v-icon>
             </v-tab>
+            <v-tab key="outgoing_bug_tab">
+              <v-icon left>mdi-bug</v-icon>
+              <v-icon left>mdi-arrow-right-bold</v-icon>
+            </v-tab>
+            <v-tab key="incoming_bug_tab">
+              <v-icon left>mdi-bug</v-icon>
+              <v-icon left>mdi-arrow-left-bold</v-icon>
+            </v-tab>
 
             <v-tab-item key="fish_tab">
-              <v-data-table
-                :headers="fish_headers"
-                :items="fish_data"
-                class="elevation-1"
-                disable-pagination
-                hide-default-footer
-              ></v-data-table>
+              <v-card>
+                <v-card-text>
+                  <div class="display-1 text--primary">Complete Fish List</div>
+                </v-card-text>
+                <v-data-table
+                  :headers="fish_headers"
+                  :items="fish_data"
+                  class="elevation-1"
+                  disable-pagination
+                  hide-default-footer
+                ></v-data-table>
+              </v-card>
             </v-tab-item>
 
             <v-tab-item key="filtered_fish_tab">
-              <v-data-table
-                :headers="fish_headers"
-                :items="filtered_fish_data"
-                :group-by="group_by.val"
-                class="elevation-1"
-                disable-pagination
-                hide-default-footer
-                show-group-by
-              ></v-data-table>
+              <v-card>
+                <v-card-text>
+                  <div class="display-1 text--primary">Filtered Fish List</div>
+                </v-card-text>
+                <v-data-table
+                  :headers="fish_headers"
+                  :items="filtered_fish_data"
+                  :group-by="group_by.val"
+                  class="elevation-1"
+                  disable-pagination
+                  hide-default-footer
+                  show-group-by
+                ></v-data-table>
+              </v-card>
+            </v-tab-item>
+
+            <v-tab-item key="outgoing_fish_tab">
+              <v-card>
+                <v-card-text>
+                  <div class="display-1 text--primary">Outgoing Fish List</div>
+                </v-card-text>
+                <v-data-table
+                  :headers="fish_headers"
+                  :items="outgoing_fish_data"
+                  class="elevation-1"
+                  disable-pagination
+                  hide-default-footer
+                ></v-data-table>
+              </v-card>
+            </v-tab-item>
+
+            <v-tab-item key="incoming_fish_tab">
+              <v-card>
+                <v-card-text>
+                  <div class="display-1 text--primary">Incoming Fish List</div>
+                </v-card-text>
+                <v-data-table
+                  :headers="fish_headers"
+                  :items="incoming_fish_data"
+                  class="elevation-1"
+                  disable-pagination
+                  hide-default-footer
+                ></v-data-table>
+              </v-card>
             </v-tab-item>
 
             <v-tab-item key="bug_tab">
-              <v-data-table
-                :headers="bug_headers"
-                :items="bug_data"
-                class="elevation-1"
-                disable-pagination
-                hide-default-footer
-              ></v-data-table>
+              <v-card>
+                <v-card-text>
+                  <div class="display-1 text--primary">Complete Bug List</div>
+                </v-card-text>
+                <v-data-table
+                  :headers="bug_headers"
+                  :items="bug_data"
+                  class="elevation-1"
+                  disable-pagination
+                  hide-default-footer
+                ></v-data-table>
+              </v-card>
             </v-tab-item>
 
             <v-tab-item key="filtered_bug_tab">
-              <v-data-table
-                :headers="bug_headers"
-                :items="filtered_bug_data"
-                :group-by="group_by.val"
-                class="elevation-1"
-                disable-pagination
-                hide-default-footer
-                show-group-by
-              ></v-data-table>
+              <v-card>
+                <v-card-text>
+                  <div class="display-1 text--primary">Filtered Bug List</div>
+                </v-card-text>
+                <v-data-table
+                  :headers="bug_headers"
+                  :items="filtered_bug_data"
+                  :group-by="group_by.val"
+                  class="elevation-1"
+                  disable-pagination
+                  hide-default-footer
+                  show-group-by
+                ></v-data-table>
+              </v-card>
+            </v-tab-item>
+
+            <v-tab-item key="outgoing_bug_tab">
+              <v-card>
+                <v-card-text>
+                  <div class="display-1 text--primary">Outgoing Bug List</div>
+                </v-card-text>
+                <v-data-table
+                  :headers="bug_headers"
+                  :items="outgoing_bug_data"
+                  class="elevation-1"
+                  disable-pagination
+                  hide-default-footer
+                ></v-data-table>
+              </v-card>
+            </v-tab-item>
+
+            <v-tab-item key="incoming_bug_tab">
+              <v-card>
+                <v-card-text>
+                  <div class="display-1 text--primary">Incoming Bug List</div>
+                </v-card-text>
+                <v-data-table
+                  :headers="bug_headers"
+                  :items="incoming_bug_data"
+                  class="elevation-1"
+                  disable-pagination
+                  hide-default-footer
+                ></v-data-table>
+              </v-card>
             </v-tab-item>
 
           </v-tabs>

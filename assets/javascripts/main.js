@@ -48,6 +48,8 @@ var app = new Vue({
     northern_fish_data: [],
     southern_fish_data: [],
     filtered_fish_data: [],
+    outgoing_fish_data: [],
+    incoming_fish_data: [],
     fish_headers: [
       {
         text: 'Name',
@@ -67,6 +69,8 @@ var app = new Vue({
     northern_bug_data: [],
     southern_bug_data: [],
     filtered_bug_data: [],
+    outgoing_bug_data: [],
+    incoming_bug_data: [],
     bug_headers: [
       {
         text: 'Name',
@@ -99,16 +103,6 @@ var app = new Vue({
         });
 
         vm.fish_data = formatted_data;
-        vm.northern_fish_data = formatted_data.filter(row => row.hemisphere === 'N').map(function(row) {
-          var cloned = Object.assign({}, row);
-          delete cloned.hemisphere;
-          return cloned;
-        });
-        vm.southern_fish_data = formatted_data.filter(row => row.hemisphere === 'S').map(function(row) {
-          var cloned = Object.assign({}, row);
-          delete cloned.hemisphere;
-          return cloned;
-        });
       });
     },
 
@@ -127,16 +121,6 @@ var app = new Vue({
         });
 
         vm.bug_data = formatted_data;
-        vm.northern_bug_data = formatted_data.filter(row => row.hemisphere === 'N').map(function(row) {
-          var cloned = Object.assign({}, row);
-          delete cloned.hemisphere;
-          return cloned;
-        });
-        vm.southern_bug_data = formatted_data.filter(row => row.hemisphere === 'S').map(function(row) {
-          var cloned = Object.assign({}, row);
-          delete cloned.hemisphere;
-          return cloned;
-        });
       });
     },
 
@@ -150,14 +134,32 @@ var app = new Vue({
       });
     },
 
+    filterOutgoing: function(data) {
+      var vm = this;
+      var this_month = vm.now.getMonth() + 1;
+      var next_month = this_month + 1;
+      return data.filter(row => row.months.includes(this_month) && !row.months.includes(next_month));
+    },
+
+    filterIncoming: function(data) {
+      var vm = this;
+      var this_month = vm.now.getMonth() + 1;
+      var next_month = this_month + 1;
+      return data.filter(row => !row.months.includes(this_month) && row.months.includes(next_month));
+    },
+
     filterFishData: function() {
       var vm = this;
       vm.filtered_fish_data = vm.filterData(vm.fish_data);
+      vm.outgoing_fish_data = vm.filterOutgoing(vm.filtered_fish_data);
+      vm.incoming_fish_data = vm.filterIncoming(vm.filtered_fish_data);
     },
 
     filterBugData: function() {
       var vm = this;
       vm.filtered_bug_data = vm.filterData(vm.bug_data);
+      vm.outgoing_bug_data = vm.filterOutgoing(vm.filtered_bug_data);
+      vm.incoming_bug_data = vm.filterIncoming(vm.filtered_bug_data);
     },
 
   },
