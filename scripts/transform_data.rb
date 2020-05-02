@@ -39,7 +39,7 @@ def format_rows(rows, northern)
   rows.each do |row|
     format_row(row, northern)
   end
-  rows
+  rows.sort_by { |row| row["name"] }
 end
 
 def format_row(row, northern)
