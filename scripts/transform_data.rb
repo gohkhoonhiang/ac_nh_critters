@@ -161,9 +161,9 @@ rescue ArgumentError
 end
 
 def time_range?(s)
-  s.match?(/.*AM.*/i) || s.match?(/.*PM.*/i) || s.match?(/All day/)
+  s.match?(/.*AM.*/i) || s.match?(/.*PM.*/i)
 end
 
 def normalize_time(s)
-  s.gsub("AM","am").gsub("PM","pm")
+  s.gsub("AM","am").gsub("PM","pm").gsub(" ","")
 end
