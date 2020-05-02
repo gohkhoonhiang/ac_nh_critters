@@ -105,12 +105,14 @@
             vertical
             dark
           >
-            <v-tab key="fish_tab">
-              <v-icon left>mdi-fish</v-icon>
-            </v-tab>
+
             <v-tab key="filtered_fish_tab">
               <v-icon left>mdi-fish</v-icon>
-              <v-icon left>mdi-filter</v-icon>
+              <v-icon left>mdi-clock</v-icon>
+            </v-tab>
+            <v-tab key="this_month_fish_tab">
+              <v-icon left>mdi-fish</v-icon>
+              <v-icon left>mdi-calendar</v-icon>
             </v-tab>
             <v-tab key="outgoing_fish_tab">
               <v-icon left>mdi-fish</v-icon>
@@ -120,12 +122,17 @@
               <v-icon left>mdi-fish</v-icon>
               <v-icon left>mdi-arrow-left-bold</v-icon>
             </v-tab>
-            <v-tab key="bug_tab">
-              <v-icon left>mdi-bug</v-icon>
+            <v-tab key="fish_tab">
+              <v-icon left>mdi-fish</v-icon>
             </v-tab>
+
             <v-tab key="filtered_bug_tab">
               <v-icon left>mdi-bug</v-icon>
-              <v-icon left>mdi-filter</v-icon>
+              <v-icon left>mdi-clock</v-icon>
+            </v-tab>
+            <v-tab key="this_month_bug_tab">
+              <v-icon left>mdi-bug</v-icon>
+              <v-icon left>mdi-calendar</v-icon>
             </v-tab>
             <v-tab key="outgoing_bug_tab">
               <v-icon left>mdi-bug</v-icon>
@@ -135,30 +142,35 @@
               <v-icon left>mdi-bug</v-icon>
               <v-icon left>mdi-arrow-left-bold</v-icon>
             </v-tab>
-
-            <v-tab-item key="fish_tab">
-              <v-card>
-                <v-card-text>
-                  <div class="display-1 text--primary">Complete Fish List</div>
-                </v-card-text>
-                <v-data-table
-                  :headers="fish_headers"
-                  :items="fish_data"
-                  class="elevation-1"
-                  disable-pagination
-                  hide-default-footer
-                ></v-data-table>
-              </v-card>
-            </v-tab-item>
+            <v-tab key="bug_tab">
+              <v-icon left>mdi-bug</v-icon>
+            </v-tab>
 
             <v-tab-item key="filtered_fish_tab">
               <v-card>
                 <v-card-text>
-                  <div class="display-1 text--primary">Filtered Fish List</div>
+                  <div class="display-1 text--primary">Current Hour Fish List</div>
                 </v-card-text>
                 <v-data-table
                   :headers="fish_headers"
-                  :items="filtered_fish_data"
+                  :items="current_hour_fish_data"
+                  :group-by="group_by.val"
+                  class="elevation-1"
+                  disable-pagination
+                  hide-default-footer
+                  show-group-by
+                ></v-data-table>
+              </v-card>
+            </v-tab-item>
+
+            <v-tab-item key="this_month_fish_tab">
+              <v-card>
+                <v-card-text>
+                  <div class="display-1 text--primary">This Month Fish List</div>
+                </v-card-text>
+                <v-data-table
+                  :headers="fish_headers"
+                  :items="this_month_fish_data"
                   :group-by="group_by.val"
                   class="elevation-1"
                   disable-pagination
@@ -198,14 +210,14 @@
               </v-card>
             </v-tab-item>
 
-            <v-tab-item key="bug_tab">
+            <v-tab-item key="fish_tab">
               <v-card>
                 <v-card-text>
-                  <div class="display-1 text--primary">Complete Bug List</div>
+                  <div class="display-1 text--primary">Complete Fish List</div>
                 </v-card-text>
                 <v-data-table
-                  :headers="bug_headers"
-                  :items="bug_data"
+                  :headers="fish_headers"
+                  :items="fish_data"
                   class="elevation-1"
                   disable-pagination
                   hide-default-footer
@@ -216,11 +228,28 @@
             <v-tab-item key="filtered_bug_tab">
               <v-card>
                 <v-card-text>
-                  <div class="display-1 text--primary">Filtered Bug List</div>
+                  <div class="display-1 text--primary">Current Hour Bug List</div>
                 </v-card-text>
                 <v-data-table
                   :headers="bug_headers"
-                  :items="filtered_bug_data"
+                  :items="current_hour_bug_data"
+                  :group-by="group_by.val"
+                  class="elevation-1"
+                  disable-pagination
+                  hide-default-footer
+                  show-group-by
+                ></v-data-table>
+              </v-card>
+            </v-tab-item>
+
+            <v-tab-item key="this_month_bug_tab">
+              <v-card>
+                <v-card-text>
+                  <div class="display-1 text--primary">This Month Fish List</div>
+                </v-card-text>
+                <v-data-table
+                  :headers="bug_headers"
+                  :items="this_month_bug_data"
                   :group-by="group_by.val"
                   class="elevation-1"
                   disable-pagination
@@ -253,6 +282,21 @@
                 <v-data-table
                   :headers="bug_headers"
                   :items="incoming_bug_data"
+                  class="elevation-1"
+                  disable-pagination
+                  hide-default-footer
+                ></v-data-table>
+              </v-card>
+            </v-tab-item>
+
+            <v-tab-item key="bug_tab">
+              <v-card>
+                <v-card-text>
+                  <div class="display-1 text--primary">Complete Bug List</div>
+                </v-card-text>
+                <v-data-table
+                  :headers="bug_headers"
+                  :items="bug_data"
                   class="elevation-1"
                   disable-pagination
                   hide-default-footer
