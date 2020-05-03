@@ -37,9 +37,6 @@ var app = new Vue({
     lookup_time_input: null,
     lookup_time: null,
     toggle_hemisphere: ['N','S'],
-    toggle_group_by: false,
-    group_by_keys: [{ label: 'Location', val: 'location' }, { label: 'Shadow Size', val: 'shadow_size' }],
-    group_by: {},
 
     fish_data: [],
     northern_fish_data: [],
@@ -208,13 +205,6 @@ var app = new Vue({
       var vm = this;
       vm.filterFishData();
       vm.filterBugData();
-    },
-
-    toggle_group_by: function(newVal, oldVal) {
-      var vm = this;
-      if(!newVal) {
-        vm.group_by = {};
-      }
     },
 
   },

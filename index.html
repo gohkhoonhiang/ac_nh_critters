@@ -72,25 +72,6 @@
                 </v-text-field>
               </v-row>
 
-              <v-row align="center">
-                <v-checkbox
-                  v-model="toggle_group_by"
-                  hide-details
-                  class="shrink mr-2 mt-0"
-                ></v-checkbox>
-                <v-select
-                  v-model="group_by"
-                  :disabled="!toggle_group_by"
-                  :items="group_by_keys"
-                  item-text="label"
-                  item-value="val"
-                  label="Group by"
-                  return-object
-                  hint="Group list by (Shadow size only for fish)"
-                  persistent-hint
-                ></v-select>
-              </v-row>
-
             </v-card-text>
           </v-card>
         </v-container>
@@ -158,7 +139,6 @@
                 <v-data-table
                   :headers="fish_headers"
                   :items="current_hour_fish_data"
-                  :group-by="group_by.val"
                   class="elevation-1"
                   disable-pagination
                   hide-default-footer
@@ -175,7 +155,6 @@
                 <v-data-table
                   :headers="fish_headers"
                   :items="this_month_fish_data"
-                  :group-by="group_by.val"
                   class="elevation-1"
                   disable-pagination
                   hide-default-footer
@@ -237,7 +216,6 @@
                 <v-data-table
                   :headers="bug_headers"
                   :items="current_hour_bug_data"
-                  :group-by="group_by.val"
                   class="elevation-1"
                   disable-pagination
                   hide-default-footer
@@ -254,7 +232,6 @@
                 <v-data-table
                   :headers="bug_headers"
                   :items="this_month_bug_data"
-                  :group-by="group_by.val"
                   class="elevation-1"
                   disable-pagination
                   hide-default-footer
