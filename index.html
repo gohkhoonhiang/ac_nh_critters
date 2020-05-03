@@ -21,64 +21,18 @@
               </p>
             </v-card-text>
           </v-card>
+
         </v-container>
 
         <v-spacer></v-spacer>
 
         <v-container>
-          <v-card
-            class="mx-auto"
-            max-width="344"
-            outlined
-          >
-            <v-card-text>
-              <div class="headline mb-1">Controls</div>
-              <p>
-              Current time: <strong>{{ now | time_normalized }}</strong>
-              <br/>
-              Current month: <strong>{{ now | month_name }}</strong>
-              </p>
-
-              <v-row justify="space-around">
-                <v-checkbox
-                  v-model="toggle_hemisphere"
-                  class="mx-2"
-                  label="Northern"
-                  value="N"
-                ></v-checkbox>
-                <v-checkbox
-                  v-model="toggle_hemisphere"
-                  class="mx-2"
-                  label="Southern"
-                  value="S"
-                ></v-checkbox>
-              </v-row>
-
-              <v-row align="center">
-                <v-checkbox
-                  v-model="toggle_lookup_time"
-                  hide-details
-                  class="shrink mr-2 mt-0"
-                ></v-checkbox>
-                <v-text-field
-                  v-model="lookup_time_input"
-                  :disabled="!toggle_lookup_time"
-                  prepend-icon="mdi-clock"
-                  label="Lookup Time"
-                  type="time"
-                  hint="Filter list by lookup time"
-                  persistent-hint
-                >
-                </v-text-field>
-              </v-row>
-
-            </v-card-text>
-          </v-card>
-        </v-container>
-
-        <v-container>
           <v-toolbar flat color="primary" dark>
-            <v-toolbar-title>Critters</v-toolbar-title>
+            <v-toolbar-title>
+              Critters
+              <span class="subtitle-2">Current time: <strong>{{ now | time_normalized }}</strong></span>
+              <span class="subtitle-2">Current month: <strong>{{ now | month_name }}</strong></span>
+            </v-toolbar-title>
           </v-toolbar>
           <v-tabs
             v-model="tab"
@@ -98,6 +52,52 @@
             </v-tab>
 
             <v-tab-item key="fish_tab">
+
+              <v-container>
+                <v-card
+                  class="mx-auto"
+                  max-width="344"
+                  outlined
+                >
+                  <v-card-text>
+                    <div class="subtitle-1 mb-1">Controls</div>
+                    <v-row justify="space-around">
+                      <v-checkbox
+                        v-model="toggle_fish_hemisphere"
+                        class="mx-2"
+                        label="Northern"
+                        value="N"
+                      ></v-checkbox>
+                      <v-checkbox
+                        v-model="toggle_fish_hemisphere"
+                        class="mx-2"
+                        label="Southern"
+                        value="S"
+                      ></v-checkbox>
+                    </v-row>
+
+                    <v-row align="center">
+                      <v-checkbox
+                        v-model="toggle_fish_lookup_time"
+                        hide-details
+                        class="shrink mr-2 mt-0"
+                      ></v-checkbox>
+                      <v-text-field
+                        v-model="fish_lookup_time_input"
+                        :disabled="!toggle_fish_lookup_time"
+                        prepend-icon="mdi-clock"
+                        label="Lookup Time"
+                        type="time"
+                        hint="Filter list by lookup time"
+                        persistent-hint
+                      >
+                      </v-text-field>
+                    </v-row>
+
+                  </v-card-text>
+                </v-card>
+              </v-container>
+
               <v-card>
                 <v-tabs>
                   <v-tab key="filtered_fish_tab">
@@ -136,7 +136,7 @@
                       ></v-data-table>
                     </v-card>
                   </v-tab-item>
-  
+
                   <v-tab-item key="this_month_fish_tab">
                     <v-card>
                       <v-card-text>
@@ -152,7 +152,7 @@
                       ></v-data-table>
                     </v-card>
                   </v-tab-item>
-  
+
                   <v-tab-item key="outgoing_fish_tab">
                     <v-card>
                       <v-card-text>
@@ -167,7 +167,7 @@
                       ></v-data-table>
                     </v-card>
                   </v-tab-item>
-  
+
                   <v-tab-item key="incoming_fish_tab">
                     <v-card>
                       <v-card-text>
@@ -182,7 +182,7 @@
                       ></v-data-table>
                     </v-card>
                   </v-tab-item>
-  
+
                   <v-tab-item key="complete_fish_tab">
                     <v-card>
                       <v-card-text>
@@ -203,6 +203,52 @@
             </v-tab-item>
 
             <v-tab-item key="bug_tab">
+
+              <v-container>
+                <v-card
+                  class="mx-auto"
+                  max-width="344"
+                  outlined
+                >
+                  <v-card-text>
+                    <div class="subtitle-1 mb-1">Controls</div>
+                    <v-row justify="space-around">
+                      <v-checkbox
+                        v-model="toggle_bug_hemisphere"
+                        class="mx-2"
+                        label="Northern"
+                        value="N"
+                      ></v-checkbox>
+                      <v-checkbox
+                        v-model="toggle_bug_hemisphere"
+                        class="mx-2"
+                        label="Southern"
+                        value="S"
+                      ></v-checkbox>
+                    </v-row>
+
+                    <v-row align="center">
+                      <v-checkbox
+                        v-model="toggle_bug_lookup_time"
+                        hide-details
+                        class="shrink mr-2 mt-0"
+                      ></v-checkbox>
+                      <v-text-field
+                        v-model="bug_lookup_time_input"
+                        :disabled="!toggle_bug_lookup_time"
+                        prepend-icon="mdi-clock"
+                        label="Lookup Time"
+                        type="time"
+                        hint="Filter list by lookup time"
+                        persistent-hint
+                      >
+                      </v-text-field>
+                    </v-row>
+
+                  </v-card-text>
+                </v-card>
+              </v-container>
+
               <v-card>
                 <v-tabs>
                   <v-tab key="filtered_bug_tab">
@@ -241,7 +287,7 @@
                       ></v-data-table>
                     </v-card>
                   </v-tab-item>
-  
+
                   <v-tab-item key="this_month_bug_tab">
                     <v-card>
                       <v-card-text>
@@ -257,7 +303,7 @@
                       ></v-data-table>
                     </v-card>
                   </v-tab-item>
-  
+
                   <v-tab-item key="outgoing_bug_tab">
                     <v-card>
                       <v-card-text>
@@ -272,7 +318,7 @@
                       ></v-data-table>
                     </v-card>
                   </v-tab-item>
-  
+
                   <v-tab-item key="incoming_bug_tab">
                     <v-card>
                       <v-card-text>
@@ -287,7 +333,7 @@
                       ></v-data-table>
                     </v-card>
                   </v-tab-item>
-  
+
                   <v-tab-item key="complete_bug_tab">
                     <v-card>
                       <v-card-text>

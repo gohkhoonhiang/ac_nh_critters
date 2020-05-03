@@ -21,6 +21,17 @@ var normalize_hemisphere = function(hemisphere) {
   return hemisphere === 'northern' ? 'N' : 'S';
 };
 
+var generate_date = function(time_value) {
+  var today = new Date();
+  var year = today.getFullYear();
+  var month = today.getMonth();
+  var day = today.getDate();
+  var parts = time_value.split(':');
+  var hour = parts[0];
+  var minute = parts[1];
+  return new Date(year, month, day, hour, minute, 0);
+};
+
 var app = new Vue({
   el: '#app',
   vuetify: new Vuetify(),
@@ -33,10 +44,15 @@ var app = new Vue({
   data: {
     now: new Date(),
     tab: null,
-    toggle_lookup_time: false,
-    lookup_time_input: null,
-    lookup_time: null,
-    toggle_hemisphere: ['N','S'],
+    toggle_fish_lookup_time: false,
+    fish_lookup_time_input: null,
+    fish_lookup_time: null,
+    toggle_fish_hemisphere: ['N','S'],
+
+    toggle_bug_lookup_time: false,
+    bug_lookup_time_input: null,
+    bug_lookup_time: null,
+    toggle_bug_hemisphere: ['N','S'],
 
     fish_data: [],
     northern_fish_data: [],
@@ -120,54 +136,50 @@ var app = new Vue({
       });
     },
 
-    filterCurrentHour: function(data) {
+    filterCurrentHour: function(data, lookup_time, selected_hemispheres) {
       var vm = this;
-      var filter_time = vm.lookup_time ? vm.lookup_time : vm.now;
+      var filter_time = lookup_time ? lookup_time : vm.now;
       var current_month = filter_time.getMonth() + 1;
       var current_hour = filter_time.getHours();
-      var selected_hemispheres = vm.toggle_hemisphere;
       return data.filter(function(row) {
         return row.months.includes(current_month) && row.hours.includes(current_hour) && selected_hemispheres.includes(row.hemisphere);
       });
     },
 
-    filterOutgoing: function(data) {
+    filterOutgoing: function(data, selected_hemispheres) {
       var vm = this;
       var this_month = vm.now.getMonth() + 1;
       var next_month = this_month + 1;
-      var selected_hemispheres = vm.toggle_hemisphere;
       return data.filter(row => row.months.includes(this_month) && !row.months.includes(next_month) && selected_hemispheres.includes(row.hemisphere));
     },
 
-    filterIncoming: function(data) {
+    filterIncoming: function(data, selected_hemispheres) {
       var vm = this;
       var this_month = vm.now.getMonth() + 1;
       var next_month = this_month + 1;
-      var selected_hemispheres = vm.toggle_hemisphere;
       return data.filter(row => !row.months.includes(this_month) && row.months.includes(next_month) && selected_hemispheres.includes(row.hemisphere));
     },
 
-    filterThisMonth: function(data) {
+    filterThisMonth: function(data, selected_hemispheres) {
       var vm = this;
       var this_month = vm.now.getMonth() + 1;
-      var selected_hemispheres = vm.toggle_hemisphere;
       return data.filter(row => row.months.includes(this_month) && selected_hemispheres.includes(row.hemisphere));
     },
 
     filterFishData: function() {
       var vm = this;
-      vm.current_hour_fish_data = vm.filterCurrentHour(vm.fish_data);
-      vm.outgoing_fish_data = vm.filterOutgoing(vm.fish_data);
-      vm.incoming_fish_data = vm.filterIncoming(vm.fish_data);
-      vm.this_month_fish_data = vm.filterThisMonth(vm.fish_data);
+      vm.current_hour_fish_data = vm.filterCurrentHour(vm.fish_data, vm.fish_lookup_time, vm.toggle_fish_hemisphere);
+      vm.outgoing_fish_data = vm.filterOutgoing(vm.fish_data, vm.toggle_fish_hemisphere);
+      vm.incoming_fish_data = vm.filterIncoming(vm.fish_data, vm.toggle_fish_hemisphere);
+      vm.this_month_fish_data = vm.filterThisMonth(vm.fish_data, vm.toggle_fish_hemisphere);
     },
 
     filterBugData: function() {
       var vm = this;
-      vm.current_hour_bug_data = vm.filterCurrentHour(vm.bug_data);
-      vm.outgoing_bug_data = vm.filterOutgoing(vm.bug_data);
-      vm.incoming_bug_data = vm.filterIncoming(vm.bug_data);
-      vm.this_month_bug_data = vm.filterThisMonth(vm.bug_data);
+      vm.current_hour_bug_data = vm.filterCurrentHour(vm.bug_data, vm.bug_lookup_time, vm.toggle_bug_hemisphere);
+      vm.outgoing_bug_data = vm.filterOutgoing(vm.bug_data, vm.toggle_bug_hemisphere);
+      vm.incoming_bug_data = vm.filterIncoming(vm.bug_data, vm.toggle_bug_hemisphere);
+      vm.this_month_bug_data = vm.filterThisMonth(vm.bug_data, vm.toggle_bug_hemisphere);
     },
 
   },
@@ -187,23 +199,25 @@ var app = new Vue({
       }
     },
 
-    lookup_time_input: function(newVal, oldVal) {
+    fish_lookup_time_input: function(newVal, oldVal) {
       var vm = this;
-      var today = new Date();
-      var year = today.getFullYear();
-      var month = today.getMonth();
-      var day = today.getDate();
-      var parts = newVal.split(':');
-      var hour = parts[0];
-      var minute = parts[1];
-      vm.lookup_time = new Date(year, month, day, hour, minute, 0);
+      vm.fish_lookup_time = generate_date(newVal);
       vm.filterFishData();
+    },
+
+    bug_lookup_time_input: function(newVal, oldVal) {
+      var vm = this;
+      vm.bug_lookup_time = generate_date(newVal);
       vm.filterBugData();
     },
 
-    toggle_hemisphere: function(newVal, oldVal) {
+    toggle_fish_hemisphere: function(newVal, oldVal) {
       var vm = this;
       vm.filterFishData();
+    },
+
+    toggle_bug_hemisphere: function(newVal, oldVal) {
+      var vm = this;
       vm.filterBugData();
     },
 
