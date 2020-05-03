@@ -34,7 +34,21 @@ var generate_date = function(time_value) {
 
 var app = new Vue({
   el: '#app',
-  vuetify: new Vuetify(),
+  vuetify: new Vuetify({
+    theme: {
+      themes: {
+        light: {
+          primary: '#0ab5cd',
+          secondary: '#fffae5',
+          header: '#686868',
+          toolbar: '#f5f8fe',
+          font: '#837865',
+          error: '#e76e60',
+        },
+      },
+    },
+  }),
+
   created() {
     this.getFishData();
     this.getBugData();

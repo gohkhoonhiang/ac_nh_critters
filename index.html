@@ -13,11 +13,15 @@
         <v-container>
           <v-card
             class="mx-auto"
+            color="secondary"
+            light
             outlined
           >
-            <v-card-text>
+            <v-card-text class="font--text">
               <p>
+                <strong>
                 This is the Animal Crossing: New Horizons complete critters list. All data are sourced from the <a href="https://animalcrossing.fandom.com/wiki/Animal_Crossing_Wiki">Fandom Wiki</a>
+                </strong>
               </p>
             </v-card-text>
           </v-card>
@@ -27,8 +31,8 @@
         <v-spacer></v-spacer>
 
         <v-container>
-          <v-toolbar flat color="primary" dark>
-            <v-toolbar-title>
+          <v-toolbar flat color="toolbar" light>
+            <v-toolbar-title class="header--text font-weight-black">
               Critters
               <span class="subtitle-2">Current time: <strong>{{ now | time_normalized }}</strong></span>
               <span class="subtitle-2">Current month: <strong>{{ now | month_name }}</strong></span>
@@ -36,9 +40,9 @@
           </v-toolbar>
           <v-tabs
             v-model="tab"
-            background-color="primary"
+            background-color="toolbar"
             vertical
-            dark
+            light
           >
 
             <v-tab key="fish_tab">
@@ -56,12 +60,13 @@
               <v-container>
                 <v-card
                   class="mx-auto"
-                  max-width="344"
+                  color="secondary"
+                  light
                   outlined
                 >
-                  <v-card-text>
-                    <div class="subtitle-1 mb-1">Controls</div>
-                    <v-row justify="space-around">
+                  <v-card-text class="font--text">
+                    <div class="subtitle-1 mb-1 font-weight-bold">Controls</div>
+                    <v-row align="left">
                       <v-checkbox
                         v-model="toggle_fish_hemisphere"
                         class="mx-2"
@@ -90,15 +95,14 @@
                         type="time"
                         hint="Filter list by lookup time"
                         persistent-hint
-                      >
-                      </v-text-field>
+                      ></v-text-field>
                     </v-row>
 
                   </v-card-text>
                 </v-card>
               </v-container>
 
-              <v-card>
+              <v-card flat>
                 <v-tabs>
                   <v-tab key="filtered_fish_tab">
                     Current
@@ -122,7 +126,7 @@
                   </v-tab>
 
                   <v-tab-item key="filtered_fish_tab">
-                    <v-card>
+                    <v-card flat>
                       <v-card-text>
                         <div class="display-1 text--primary">Current Hour Fish List</div>
                       </v-card-text>
@@ -138,7 +142,7 @@
                   </v-tab-item>
 
                   <v-tab-item key="this_month_fish_tab">
-                    <v-card>
+                    <v-card flat>
                       <v-card-text>
                         <div class="display-1 text--primary">This Month Fish List</div>
                       </v-card-text>
@@ -154,7 +158,7 @@
                   </v-tab-item>
 
                   <v-tab-item key="outgoing_fish_tab">
-                    <v-card>
+                    <v-card flat>
                       <v-card-text>
                         <div class="display-1 text--primary">Outgoing Fish List</div>
                       </v-card-text>
@@ -169,7 +173,7 @@
                   </v-tab-item>
 
                   <v-tab-item key="incoming_fish_tab">
-                    <v-card>
+                    <v-card flat>
                       <v-card-text>
                         <div class="display-1 text--primary">Incoming Fish List</div>
                       </v-card-text>
@@ -184,7 +188,7 @@
                   </v-tab-item>
 
                   <v-tab-item key="complete_fish_tab">
-                    <v-card>
+                    <v-card flat>
                       <v-card-text>
                         <div class="display-1 text--primary">Complete Fish List</div>
                       </v-card-text>
@@ -207,12 +211,13 @@
               <v-container>
                 <v-card
                   class="mx-auto"
-                  max-width="344"
+                  color="secondary"
+                  light
                   outlined
                 >
-                  <v-card-text>
-                    <div class="subtitle-1 mb-1">Controls</div>
-                    <v-row justify="space-around">
+                  <v-card-text class="font--text">
+                    <div class="subtitle-1 mb-1 font-weight-bold">Controls</div>
+                    <v-row>
                       <v-checkbox
                         v-model="toggle_bug_hemisphere"
                         class="mx-2"
@@ -249,7 +254,7 @@
                 </v-card>
               </v-container>
 
-              <v-card>
+              <v-card flat>
                 <v-tabs>
                   <v-tab key="filtered_bug_tab">
                     Current
@@ -273,7 +278,7 @@
                   </v-tab>
 
                   <v-tab-item key="filtered_bug_tab">
-                    <v-card>
+                    <v-card flat>
                       <v-card-text>
                         <div class="display-1 text--primary">Current Hour Bug List</div>
                       </v-card-text>
@@ -289,7 +294,7 @@
                   </v-tab-item>
 
                   <v-tab-item key="this_month_bug_tab">
-                    <v-card>
+                    <v-card flat>
                       <v-card-text>
                         <div class="display-1 text--primary">This Month Fish List</div>
                       </v-card-text>
@@ -305,7 +310,7 @@
                   </v-tab-item>
 
                   <v-tab-item key="outgoing_bug_tab">
-                    <v-card>
+                    <v-card flat>
                       <v-card-text>
                         <div class="display-1 text--primary">Outgoing Bug List</div>
                       </v-card-text>
@@ -320,7 +325,7 @@
                   </v-tab-item>
 
                   <v-tab-item key="incoming_bug_tab">
-                    <v-card>
+                    <v-card flat>
                       <v-card-text>
                         <div class="display-1 text--primary">Incoming Bug List</div>
                       </v-card-text>
@@ -335,7 +340,7 @@
                   </v-tab-item>
 
                   <v-tab-item key="complete_bug_tab">
-                    <v-card>
+                    <v-card flat>
                       <v-card-text>
                         <div class="display-1 text--primary">Complete Bug List</div>
                       </v-card-text>
@@ -354,7 +359,7 @@
             </v-tab-item>
 
             <v-tab-item key="help_tab">
-              <v-card>
+              <v-card flat>
                 <v-card-text>
                   <div class="display-1 text--primary">FAQ</div>
                 </v-card-text>
@@ -362,9 +367,9 @@
                   <v-row dense>
                     <v-col cols="12">
                       <v-card
-                        color="#FFFAE5"
+                        color="secondary"
                       >
-                        <v-card-title class="headline">What is this site about?</v-card-title>
+                        <v-card-title class="headline header--text">What is this site about?</v-card-title>
                         <v-card-subtitle>
                           <p>When I first started playing AC:NH, I found myself frequently checking the <a href="https://animalcrossing.fandom.com/wiki/Fish_(New_Horizons)" target="_blank">Fandom fish list</a> at different times of the day to find out what kind of fishes I could get and sell at a good price.</p>
                           <p>The Fandom page was great, but it lacked certain filtering controls, eg. the current hour's list of fishes.</p>
@@ -379,9 +384,9 @@
                   <v-row dense>
                     <v-col cols="12">
                       <v-card
-                        color="#FFFAE5"
+                        color="secondary"
                       >
-                        <v-card-title class="headline">Where do you get your data from?</v-card-title>
+                        <v-card-title class="headline header--text">Where do you get your data from?</v-card-title>
                         <v-card-subtitle>
                           <p>As mentioned in the previous answer, I got my data from the <a href="https://animalcrossing.fandom.com/wiki/Fish_(New_Horizons)" target="_blank">Fandom fish list</a>. The bug list is also from <a href="https://animalcrossing.fandom.com/wiki/Bugs_(New_Horizons)" target="_blank">Fandom.</a></p>
                           <p>I downloaded the HTML source, normalized some values, eg. converting ✓ to a true value, then imported the normalized data into a Google Sheets. There, I exported the data into CSV format. With a Ruby script, I added the list of months and hours based on the raw data's month columns and time range for each critter, and finally combined both northern and southern hemisphere lists into a single JSON format.</p>
@@ -393,11 +398,24 @@
                   <v-row dense>
                     <v-col cols="12">
                       <v-card
-                        color="#FFFAE5"
+                        color="secondary"
                       >
-                        <v-card-title class="headline">Which browsers are supported?</v-card-title>
+                        <v-card-title class="headline header--text">Which browsers are supported?</v-card-title>
                         <v-card-subtitle>
                           <p>This site has only been tested on Google Chrome (Version 81.0.4044.129). No guarantee that it will work on other browsers.</p>
+                        </v-card-subtitle>
+                      </v-card>
+                    </v-col>
+                  </v-row>
+
+                  <v-row dense>
+                    <v-col cols="12">
+                      <v-card
+                        color="secondary"
+                      >
+                        <v-card-title class="headline header--text">Where did you get the color scheme from?</v-card-title>
+                        <v-card-subtitle>
+                          <p>The color scheme is inspired by the <a href="https://turnipprophet.io/" target="_blank">Turnip Prophet site</a>. It's a really useful site I personally use to track my turnip prices and predict when is the best time I should sell. Go and support them!</p>
                         </v-card-subtitle>
                       </v-card>
                     </v-col>
