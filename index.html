@@ -135,24 +135,6 @@
                       >
                         <v-card-text>
                           <v-row>
-                            <v-col cols="6">
-                              <v-row align="center">
-                                <v-checkbox
-                                  v-model="toggle_fish_lookup_time"
-                                  hide-details
-                                  class="shrink mr-2 mt-0"
-                                ></v-checkbox>
-                                <v-text-field
-                                  v-model="fish_lookup_time_input"
-                                  :disabled="!toggle_fish_lookup_time"
-                                  prepend-icon="mdi-clock"
-                                  label="Lookup Time"
-                                  type="time"
-                                  hint="Filter list by custom lookup time"
-                                  persistent-hint
-                                ></v-text-field>
-                              </v-row>
-                            </v-col>
 
                             <v-col cols="6">
                              <v-row>
@@ -188,7 +170,20 @@
                             <td>
                               <v-text-field v-model="fish_search" label="Filter name"></v-text-field>
                             </td>
-                            <td colspan="6"></td>
+                            <td colspan="3"></td>
+
+                            <td>
+                              <v-row align="center">
+                                <v-text-field
+                                  v-model="fish_lookup_time_input"
+                                  label="Lookup Time"
+                                  type="time"
+                                  clearable
+                                ></v-text-field>
+                              </v-row>
+                            </td>
+                            <td colspan="2"></td>
+
                           </tr>
                         </template>
                       </v-data-table>
@@ -246,29 +241,38 @@
                   <v-tab-item key="complete_fish_tab">
                     <v-card flat>
 
-                      <v-card
-                        max-width="344"
-                        flat
-                      >
-                        <v-card-text>
-                          <v-select
-                            v-model="fish_month_filter"
-                            :items="month_names"
-                            clearable
-                            label="Month"
-                          ></v-select>
-                        </v-card-text>
-                      </v-card>
-
                       <v-data-table
                         :headers="fish_headers"
                         :items="complete_fish_data"
+                        :search="fish_search"
                         class="elevation-1"
                         disable-pagination
                         hide-default-footer
                       >
                         <template v-slot:item.price="{ item }">
                           <v-chip :color="highlightPrice(item.price, fish_high_price_threshold)">{{ item.price }}</v-chip>
+                        </template>
+
+                        <template v-slot:body.prepend>
+                          <tr>
+                            <td>
+                              <v-text-field v-model="fish_search" label="Filter name"></v-text-field>
+                            </td>
+                            <td colspan="4"></td>
+
+                            <td>
+                              <v-row align="center">
+                                <v-select
+                                  v-model="fish_month_filter"
+                                  :items="month_names"
+                                  clearable
+                                  label="Month"
+                                ></v-select>
+                              </v-row>
+                            </td>
+                            <td colspan="1"></td>
+
+                          </tr>
                         </template>
                       </v-data-table>
                     </v-card>
@@ -351,26 +355,6 @@
                         <v-card-text>
                           <v-row>
                             <v-col cols="6">
-                              <v-row align="center">
-                                <v-checkbox
-                                  v-model="toggle_bug_lookup_time"
-                                  hide-details
-                                  class="shrink mr-2 mt-0"
-                                ></v-checkbox>
-                                <v-text-field
-                                  v-model="bug_lookup_time_input"
-                                  :disabled="!toggle_bug_lookup_time"
-                                  prepend-icon="mdi-clock"
-                                  label="Lookup Time"
-                                  type="time"
-                                  hint="Filter list by lookup time"
-                                  persistent-hint
-                                >
-                                </v-text-field>
-                              </v-row>
-                            </v-col>
-
-                            <v-col cols="6">
                               <v-row>
                                 <v-select
                                   v-model="bug_group_by"
@@ -404,7 +388,21 @@
                             <td>
                               <v-text-field v-model="bug_search" label="Filter name"></v-text-field>
                             </td>
-                            <td colspan="6"></td>
+                            <td colspan="2"></td>
+
+                            <td>
+                              <v-row align="center">
+                                <v-text-field
+                                  v-model="bug_lookup_time_input"
+                                  label="Lookup Time"
+                                  type="time"
+                                  clearable
+                                >
+                                </v-text-field>
+                              </v-row>
+                            </td>
+                            <td colspan="2"></td>
+
                           </tr>
                         </template>
                       </v-data-table>
@@ -461,29 +459,38 @@
 
                   <v-tab-item key="complete_bug_tab">
                     <v-card flat>
-                      <v-card
-                        max-width="344"
-                        flat
-                      >
-                        <v-card-text>
-                          <v-select
-                            v-model="bug_month_filter"
-                            :items="month_names"
-                            clearable
-                            label="Month"
-                          ></v-select>
-                        </v-card-text>
-                      </v-card>
-
                       <v-data-table
                         :headers="bug_headers"
                         :items="complete_bug_data"
+                        :search="bug_search"
                         class="elevation-1"
                         disable-pagination
                         hide-default-footer
                       >
                         <template v-slot:item.price="{ item }">
                           <v-chip :color="highlightPrice(item.price, bug_high_price_threshold)">{{ item.price }}</v-chip>
+                        </template>
+
+                        <template v-slot:body.prepend>
+                          <tr>
+                            <td>
+                              <v-text-field v-model="bug_search" label="Filter name"></v-text-field>
+                            </td>
+                            <td colspan="3"></td>
+
+                            <td>
+                              <v-row align="center">
+                                <v-select
+                                  v-model="bug_month_filter"
+                                  :items="month_names"
+                                  clearable
+                                  label="Month"
+                                ></v-select>
+                              </v-row>
+                            </td>
+                            <td colspan="2"></td>
+
+                          </tr>
                         </template>
                       </v-data-table>
                     </v-card>

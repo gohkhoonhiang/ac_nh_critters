@@ -60,12 +60,11 @@ var app = new Vue({
     now: new Date(),
     month_names: month_names,
     tab: null,
-    toggle_fish_lookup_time: false,
+
     fish_lookup_time_input: null,
     fish_lookup_time: null,
     toggle_fish_hemisphere: ['N','S'],
 
-    toggle_bug_lookup_time: false,
     bug_lookup_time_input: null,
     bug_lookup_time: null,
     toggle_bug_hemisphere: ['N','S'],
@@ -244,12 +243,6 @@ var app = new Vue({
     storeSettings: function() {
       var vm = this;
       var settings = {
-        toggle_fish_lookup_time: vm.toggle_fish_lookup_time,
-        toggle_bug_lookup_time: vm.toggle_bug_lookup_time,
-        fish_lookup_time_input: vm.fish_lookup_time_input,
-        bug_lookup_time_input: vm.bug_lookup_time_input,
-        fish_lookup_time: vm.fish_lookup_time,
-        bug_lookup_time: vm.bug_lookup_time,
         toggle_fish_hemisphere: vm.toggle_fish_hemisphere,
         toggle_bug_hemisphere: vm.toggle_bug_hemisphere,
         fish_high_price_threshold: vm.fish_high_price_threshold,
@@ -284,26 +277,24 @@ var app = new Vue({
       }
     },
 
-    toggle_fish_lookup_time: function(new_val, old_val) {
-      var vm = this;
-      vm.storeSettings();
-    },
-
-    toggle_bug_lookup_time: function(new_val, old_val) {
-      var vm = this;
-      vm.storeSettings();
-    },
-
     fish_lookup_time_input: function(new_val, old_val) {
       var vm = this;
-      vm.fish_lookup_time = generateDate(new_val);
+      if (new_val) {
+        vm.fish_lookup_time = generateDate(new_val);
+      } else {
+        vm.fish_lookup_time = vm.now;
+      }
       vm.filterFishData();
       vm.storeSettings();
     },
 
     bug_lookup_time_input: function(new_val, old_val) {
       var vm = this;
-      vm.bug_lookup_time = generateDate(new_val);
+      if (new_val) {
+        vm.bug_lookup_time = generateDate(new_val);
+      } else {
+        vm.bug_lookup_time = vm.now;
+      }
       vm.filterBugData();
       vm.storeSettings();
     },
