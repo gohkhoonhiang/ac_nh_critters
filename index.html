@@ -65,7 +65,8 @@
                   outlined
                 >
                   <v-card-text class="font--text">
-                    <div class="subtitle-1 mb-1 font-weight-bold">Controls</div>
+                    <div class="subtitle-1 mb-1 font-weight-bold">Global Controls</div>
+                    <div class="caption mb-1 font-weight-bold">Applies to all fish list views.</div>
                     <v-row>
                       <v-checkbox
                         v-model="toggle_fish_hemisphere"
@@ -219,6 +220,21 @@
                       <v-card-text>
                         <div class="display-1 text--primary">Complete Fish List</div>
                       </v-card-text>
+
+                      <v-card
+                        max-width="344"
+                        flat
+                      >
+                        <v-card-text>
+                          <v-select
+                            v-model="fish_month_filter"
+                            :items="month_names"
+                            clearable
+                            label="Month"
+                          ></v-select>
+                        </v-card-text>
+                      </v-card>
+
                       <v-data-table
                         :headers="fish_headers"
                         :items="complete_fish_data"
@@ -247,7 +263,8 @@
                   outlined
                 >
                   <v-card-text class="font--text">
-                    <div class="subtitle-1 mb-1 font-weight-bold">Controls</div>
+                    <div class="subtitle-1 mb-1 font-weight-bold">Global Controls</div>
+                    <div class="caption mb-1 font-weight-bold">Applies to all bug list views.</div>
                     <v-row>
                       <v-checkbox
                         v-model="toggle_bug_hemisphere"
@@ -402,6 +419,21 @@
                       <v-card-text>
                         <div class="display-1 text--primary">Complete Bug List</div>
                       </v-card-text>
+
+                      <v-card
+                        max-width="344"
+                        flat
+                      >
+                        <v-card-text>
+                          <v-select
+                            v-model="bug_month_filter"
+                            :items="month_names"
+                            clearable
+                            label="Month"
+                          ></v-select>
+                        </v-card-text>
+                      </v-card>
+
                       <v-data-table
                         :headers="bug_headers"
                         :items="complete_bug_data"

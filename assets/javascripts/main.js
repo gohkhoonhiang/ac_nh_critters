@@ -57,6 +57,7 @@ var app = new Vue({
 
   data: {
     now: new Date(),
+    month_names: month_names,
     tab: null,
     toggle_fish_lookup_time: false,
     fish_lookup_time_input: null,
@@ -70,6 +71,8 @@ var app = new Vue({
 
     fish_high_price_threshold: 1000,
     bug_high_price_threshold: 1000,
+    fish_month_filter: null,
+    bug_month_filter: null,
 
     fish_data: [],
     northern_fish_data: [],
@@ -185,9 +188,9 @@ var app = new Vue({
       return data.filter(row => row.months.includes(this_month) && selected_hemispheres.includes(row.hemisphere));
     },
 
-    filterComplete: function(data, selected_hemispheres) {
+    filterComplete: function(data, selected_hemispheres, month_filter) {
       var vm = this;
-      return data.filter(row => selected_hemispheres.includes(row.hemisphere));
+      return data.filter(row => selected_hemispheres.includes(row.hemisphere) && (!month_filter || row.month_names.includes(month_filter)));
     },
 
     filterFishData: function() {
@@ -196,7 +199,7 @@ var app = new Vue({
       vm.outgoing_fish_data = vm.filterOutgoing(vm.fish_data, vm.toggle_fish_hemisphere);
       vm.incoming_fish_data = vm.filterIncoming(vm.fish_data, vm.toggle_fish_hemisphere);
       vm.this_month_fish_data = vm.filterThisMonth(vm.fish_data, vm.toggle_fish_hemisphere);
-      vm.complete_fish_data = vm.filterComplete(vm.fish_data, vm.toggle_fish_hemisphere);
+      vm.complete_fish_data = vm.filterComplete(vm.fish_data, vm.toggle_fish_hemisphere, vm.fish_month_filter);
     },
 
     filterBugData: function() {
@@ -205,7 +208,7 @@ var app = new Vue({
       vm.outgoing_bug_data = vm.filterOutgoing(vm.bug_data, vm.toggle_bug_hemisphere);
       vm.incoming_bug_data = vm.filterIncoming(vm.bug_data, vm.toggle_bug_hemisphere);
       vm.this_month_bug_data = vm.filterThisMonth(vm.bug_data, vm.toggle_bug_hemisphere);
-      vm.complete_bug_data = vm.filterComplete(vm.bug_data, vm.toggle_bug_hemisphere);
+      vm.complete_bug_data = vm.filterComplete(vm.bug_data, vm.toggle_bug_hemisphere, vm.bug_month_filter);
     },
 
     highlightPrice: function(price, price_threshold) {
@@ -251,6 +254,16 @@ var app = new Vue({
     },
 
     toggle_bug_hemisphere: function(new_val, old_val) {
+      var vm = this;
+      vm.filterBugData();
+    },
+
+    fish_month_filter: function(new_val, old_val) {
+      var vm = this;
+      vm.filterFishData();
+    },
+
+    bug_month_filter: function(new_val, old_val) {
       var vm = this;
       vm.filterBugData();
     },
