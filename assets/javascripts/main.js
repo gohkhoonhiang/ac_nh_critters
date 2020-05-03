@@ -13,15 +13,15 @@ var month_names = [
   "Dec"
 ];
 
-var convert_months = function(months) {
+var convertMonths = function(months) {
   return months.map(month => month_names[month-1]);
 };
 
-var normalize_hemisphere = function(hemisphere) {
+var normalizeHemisphere = function(hemisphere) {
   return hemisphere === 'northern' ? 'N' : 'S';
 };
 
-var generate_date = function(time_value) {
+var generateDate = function(time_value) {
   var today = new Date();
   var year = today.getFullYear();
   var month = today.getMonth();
@@ -126,8 +126,8 @@ var app = new Vue({
         var fish_data = JSON.parse(data).data;
         var formatted_data = fish_data.map(function(row) {
           var updated_row = row;
-          updated_row.month_names = convert_months(row.months);
-          updated_row.hemisphere = normalize_hemisphere(row.hemisphere);
+          updated_row.month_names = convertMonths(row.months);
+          updated_row.hemisphere = normalizeHemisphere(row.hemisphere);
           return updated_row;
         });
 
@@ -144,8 +144,8 @@ var app = new Vue({
         var bug_data = JSON.parse(data).data;
         var formatted_data = bug_data.map(function(row) {
           var updated_row = row;
-          updated_row.month_names = convert_months(row.months);
-          updated_row.hemisphere = normalize_hemisphere(row.hemisphere);
+          updated_row.month_names = convertMonths(row.months);
+          updated_row.hemisphere = normalizeHemisphere(row.hemisphere);
           return updated_row;
         });
 
@@ -210,38 +210,38 @@ var app = new Vue({
   },
 
   watch: {
-    fish_data: function(newVal, oldVal) {
+    fish_data: function(new_val, old_val) {
       var vm = this;
-      if (newVal.length > 0) {
+      if (new_val.length > 0) {
         vm.filterFishData();
       }
     },
 
-    bug_data: function(newVal, oldVal) {
+    bug_data: function(new_val, old_val) {
       var vm = this;
-      if (newVal.length > 0) {
+      if (new_val.length > 0) {
         vm.filterBugData();
       }
     },
 
-    fish_lookup_time_input: function(newVal, oldVal) {
+    fish_lookup_time_input: function(new_val, old_val) {
       var vm = this;
-      vm.fish_lookup_time = generate_date(newVal);
+      vm.fish_lookup_time = generateDate(new_val);
       vm.filterFishData();
     },
 
-    bug_lookup_time_input: function(newVal, oldVal) {
+    bug_lookup_time_input: function(new_val, old_val) {
       var vm = this;
-      vm.bug_lookup_time = generate_date(newVal);
+      vm.bug_lookup_time = generateDate(new_val);
       vm.filterBugData();
     },
 
-    toggle_fish_hemisphere: function(newVal, oldVal) {
+    toggle_fish_hemisphere: function(new_val, old_val) {
       var vm = this;
       vm.filterFishData();
     },
 
-    toggle_bug_hemisphere: function(newVal, oldVal) {
+    toggle_bug_hemisphere: function(new_val, old_val) {
       var vm = this;
       vm.filterBugData();
     },
