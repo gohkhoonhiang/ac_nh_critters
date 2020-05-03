@@ -115,7 +115,7 @@
 
               <v-card flat>
                 <v-tabs>
-                  <v-tab key="filtered_fish_tab">
+                  <v-tab key="current_hour_fish_tab">
                     Current
                     <v-icon left>mdi-clock</v-icon>
                   </v-tab>
@@ -136,7 +136,7 @@
                     <v-icon left>mdi-view-list</v-icon>
                   </v-tab>
 
-                  <v-tab-item key="filtered_fish_tab">
+                  <v-tab-item key="current_hour_fish_tab">
                     <v-card flat>
                       <v-card-text>
                         <div class="display-1 text--primary">Current Hour Fish List</div>
@@ -221,7 +221,7 @@
                       </v-card-text>
                       <v-data-table
                         :headers="fish_headers"
-                        :items="fish_data"
+                        :items="complete_fish_data"
                         class="elevation-1"
                         disable-pagination
                         hide-default-footer
@@ -298,7 +298,7 @@
 
               <v-card flat>
                 <v-tabs>
-                  <v-tab key="filtered_bug_tab">
+                  <v-tab key="current_hour_bug_tab">
                     Current
                     <v-icon left>mdi-clock</v-icon>
                   </v-tab>
@@ -319,7 +319,7 @@
                     <v-icon left>mdi-view-list</v-icon>
                   </v-tab>
 
-                  <v-tab-item key="filtered_bug_tab">
+                  <v-tab-item key="current_hour_bug_tab">
                     <v-card flat>
                       <v-card-text>
                         <div class="display-1 text--primary">Current Hour Bug List</div>
@@ -404,7 +404,7 @@
                       </v-card-text>
                       <v-data-table
                         :headers="bug_headers"
-                        :items="bug_data"
+                        :items="complete_bug_data"
                         class="elevation-1"
                         disable-pagination
                         hide-default-footer
