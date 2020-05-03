@@ -74,6 +74,12 @@ var app = new Vue({
     fish_month_filter: null,
     bug_month_filter: null,
 
+    fish_group_by_keys: ['location', 'shadow_size'],
+    fish_group_by: null,
+
+    bug_group_by_keys: ['location'],
+    bug_group_by: null,
+
     fish_data: [],
     northern_fish_data: [],
     southern_fish_data: [],
