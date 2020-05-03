@@ -82,6 +82,17 @@
                     </v-row>
 
                     <v-row align="center">
+                      <v-text-field
+                        v-model="fish_high_price_threshold"
+                        prepend-icon="mdi-currency-usd"
+                        label="High Price Threshold"
+                        type="number"
+                        hint="Set a threshold for high price, fishes selling at this price or higher will be highlighted"
+                        persistent-hint
+                      ></v-text-field>
+                    </v-row>
+
+                    <v-row align="center">
                       <v-checkbox
                         v-model="toggle_fish_lookup_time"
                         hide-details
@@ -137,7 +148,11 @@
                         disable-pagination
                         hide-default-footer
                         show-group-by
-                      ></v-data-table>
+                      >
+                        <template v-slot:item.price="{ item }">
+                          <v-chip :color="highlightPrice(item.price, fish_high_price_threshold)">{{ item.price }}</v-chip>
+                        </template>
+                      </v-data-table>
                     </v-card>
                   </v-tab-item>
 
@@ -153,7 +168,11 @@
                         disable-pagination
                         hide-default-footer
                         show-group-by
-                      ></v-data-table>
+                      >
+                        <template v-slot:item.price="{ item }">
+                          <v-chip :color="highlightPrice(item.price, fish_high_price_threshold)">{{ item.price }}</v-chip>
+                        </template>
+                      </v-data-table>
                     </v-card>
                   </v-tab-item>
 
@@ -168,7 +187,11 @@
                         class="elevation-1"
                         disable-pagination
                         hide-default-footer
-                      ></v-data-table>
+                      >
+                        <template v-slot:item.price="{ item }">
+                          <v-chip :color="highlightPrice(item.price, fish_high_price_threshold)">{{ item.price }}</v-chip>
+                        </template>
+                      </v-data-table>
                     </v-card>
                   </v-tab-item>
 
@@ -183,7 +206,11 @@
                         class="elevation-1"
                         disable-pagination
                         hide-default-footer
-                      ></v-data-table>
+                      >
+                        <template v-slot:item.price="{ item }">
+                          <v-chip :color="highlightPrice(item.price, fish_high_price_threshold)">{{ item.price }}</v-chip>
+                        </template>
+                      </v-data-table>
                     </v-card>
                   </v-tab-item>
 
@@ -198,7 +225,11 @@
                         class="elevation-1"
                         disable-pagination
                         hide-default-footer
-                      ></v-data-table>
+                      >
+                        <template v-slot:item.price="{ item }">
+                          <v-chip :color="highlightPrice(item.price, fish_high_price_threshold)">{{ item.price }}</v-chip>
+                        </template>
+                      </v-data-table>
                     </v-card>
                   </v-tab-item>
 
@@ -230,6 +261,17 @@
                         label="Southern"
                         value="S"
                       ></v-checkbox>
+                    </v-row>
+
+                    <v-row align="center">
+                      <v-text-field
+                        v-model="bug_high_price_threshold"
+                        prepend-icon="mdi-currency-usd"
+                        label="High Price Threshold"
+                        type="number"
+                        hint="Set a threshold for high price, bugs selling at this price or higher will be highlighted"
+                        persistent-hint
+                      ></v-text-field>
                     </v-row>
 
                     <v-row align="center">
@@ -289,7 +331,11 @@
                         disable-pagination
                         hide-default-footer
                         show-group-by
-                      ></v-data-table>
+                      >
+                        <template v-slot:item.price="{ item }">
+                          <v-chip :color="highlightPrice(item.price, bug_high_price_threshold)">{{ item.price }}</v-chip>
+                        </template>
+                      </v-data-table>
                     </v-card>
                   </v-tab-item>
 
@@ -305,7 +351,11 @@
                         disable-pagination
                         hide-default-footer
                         show-group-by
-                      ></v-data-table>
+                      >
+                        <template v-slot:item.price="{ item }">
+                          <v-chip :color="highlightPrice(item.price, bug_high_price_threshold)">{{ item.price }}</v-chip>
+                        </template>
+                      </v-data-table>
                     </v-card>
                   </v-tab-item>
 
@@ -320,7 +370,11 @@
                         class="elevation-1"
                         disable-pagination
                         hide-default-footer
-                      ></v-data-table>
+                      >
+                        <template v-slot:item.price="{ item }">
+                          <v-chip :color="highlightPrice(item.price, bug_high_price_threshold)">{{ item.price }}</v-chip>
+                        </template>
+                      </v-data-table>
                     </v-card>
                   </v-tab-item>
 
@@ -335,7 +389,11 @@
                         class="elevation-1"
                         disable-pagination
                         hide-default-footer
-                      ></v-data-table>
+                      >
+                        <template v-slot:item.price="{ item }">
+                          <v-chip :color="highlightPrice(item.price, bug_high_price_threshold)">{{ item.price }}</v-chip>
+                        </template>
+                      </v-data-table>
                     </v-card>
                   </v-tab-item>
 
@@ -350,7 +408,11 @@
                         class="elevation-1"
                         disable-pagination
                         hide-default-footer
-                      ></v-data-table>
+                      >
+                        <template v-slot:item.price="{ item }">
+                          <v-chip :color="highlightPrice(item.price, bug_high_price_threshold)">{{ item.price }}</v-chip>
+                        </template>
+                      </v-data-table>
                     </v-card>
                   </v-tab-item>
                 </v-tabs>

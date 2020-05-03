@@ -68,6 +68,9 @@ var app = new Vue({
     bug_lookup_time: null,
     toggle_bug_hemisphere: ['N','S'],
 
+    fish_high_price_threshold: 1000,
+    bug_high_price_threshold: 1000,
+
     fish_data: [],
     northern_fish_data: [],
     southern_fish_data: [],
@@ -194,6 +197,14 @@ var app = new Vue({
       vm.outgoing_bug_data = vm.filterOutgoing(vm.bug_data, vm.toggle_bug_hemisphere);
       vm.incoming_bug_data = vm.filterIncoming(vm.bug_data, vm.toggle_bug_hemisphere);
       vm.this_month_bug_data = vm.filterThisMonth(vm.bug_data, vm.toggle_bug_hemisphere);
+    },
+
+    highlightPrice: function(price, price_threshold) {
+      if (price >= price_threshold) {
+        return '#e76e60';
+      } else {
+        return 'white';
+      }
     },
 
   },
