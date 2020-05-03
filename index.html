@@ -31,27 +31,35 @@
         <v-spacer></v-spacer>
 
         <v-container>
+          <div class="sm-12">
+            <span class="subtitle-2">Current time: <strong>{{ now | time_normalized }}</strong></span>
+            <span>|</span>
+            <span class="subtitle-2">Current month: <strong>{{ now | month_name }}</strong></span>
+          </div>
+        </v-container>
+
+        <v-container>
           <v-toolbar flat color="toolbar" light>
             <v-toolbar-title class="header--text font-weight-black">
-              Critters
-              <span class="subtitle-2">Current time: <strong>{{ now | time_normalized }}</strong></span>
-              <span class="subtitle-2">Current month: <strong>{{ now | month_name }}</strong></span>
+              <div class="sm-12">Critters</div>
             </v-toolbar-title>
           </v-toolbar>
           <v-tabs
             v-model="tab"
             background-color="toolbar"
-            vertical
             light
           >
 
             <v-tab key="fish_tab">
+              Fish
               <v-icon left>mdi-fish</v-icon>
             </v-tab>
             <v-tab key="bug_tab">
+              Bug
               <v-icon left>mdi-bug</v-icon>
             </v-tab>
             <v-tab key="help_tab">
+              Help
               <v-icon left>mdi-help</v-icon>
             </v-tab>
 
