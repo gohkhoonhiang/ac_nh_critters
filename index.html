@@ -93,23 +93,6 @@
                       ></v-text-field>
                     </v-row>
 
-                    <v-row>
-                      <v-checkbox
-                        v-model="toggle_fish_lookup_time"
-                        hide-details
-                        class="shrink mr-2 mt-0"
-                      ></v-checkbox>
-                      <v-text-field
-                        v-model="fish_lookup_time_input"
-                        :disabled="!toggle_fish_lookup_time"
-                        prepend-icon="mdi-clock"
-                        label="Lookup Time"
-                        type="time"
-                        hint="Filter list by lookup time"
-                        persistent-hint
-                      ></v-text-field>
-                    </v-row>
-
                   </v-card-text>
                 </v-card>
               </v-container>
@@ -142,6 +125,31 @@
                       <v-card-text>
                         <div class="display-1 text--primary">Current Hour Fish List</div>
                       </v-card-text>
+
+                      <v-card
+                        max-width="344"
+                        flat
+                      >
+                        <v-card-text>
+                          <v-row align="center">
+                            <v-checkbox
+                              v-model="toggle_fish_lookup_time"
+                              hide-details
+                              class="shrink mr-2 mt-0"
+                            ></v-checkbox>
+                            <v-text-field
+                              v-model="fish_lookup_time_input"
+                              :disabled="!toggle_fish_lookup_time"
+                              prepend-icon="mdi-clock"
+                              label="Lookup Time"
+                              type="time"
+                              hint="Filter list by lookup time"
+                              persistent-hint
+                            ></v-text-field>
+                          </v-row>
+                        </v-card-text>
+                      </v-card>
+
                       <v-data-table
                         :headers="fish_headers"
                         :items="current_hour_fish_data"
@@ -291,24 +299,6 @@
                       ></v-text-field>
                     </v-row>
 
-                    <v-row>
-                      <v-checkbox
-                        v-model="toggle_bug_lookup_time"
-                        hide-details
-                        class="shrink mr-2 mt-0"
-                      ></v-checkbox>
-                      <v-text-field
-                        v-model="bug_lookup_time_input"
-                        :disabled="!toggle_bug_lookup_time"
-                        prepend-icon="mdi-clock"
-                        label="Lookup Time"
-                        type="time"
-                        hint="Filter list by lookup time"
-                        persistent-hint
-                      >
-                      </v-text-field>
-                    </v-row>
-
                   </v-card-text>
                 </v-card>
               </v-container>
@@ -341,6 +331,32 @@
                       <v-card-text>
                         <div class="display-1 text--primary">Current Hour Bug List</div>
                       </v-card-text>
+
+                      <v-card
+                        max-width="344"
+                        flat
+                      >
+                        <v-card-text>
+                          <v-row align="center">
+                            <v-checkbox
+                              v-model="toggle_bug_lookup_time"
+                              hide-details
+                              class="shrink mr-2 mt-0"
+                            ></v-checkbox>
+                            <v-text-field
+                              v-model="bug_lookup_time_input"
+                              :disabled="!toggle_bug_lookup_time"
+                              prepend-icon="mdi-clock"
+                              label="Lookup Time"
+                              type="time"
+                              hint="Filter list by lookup time"
+                              persistent-hint
+                            >
+                            </v-text-field>
+                          </v-row>
+                        </v-card-text>
+                      </v-card>
+
                       <v-data-table
                         :headers="bug_headers"
                         :items="current_hour_bug_data"
