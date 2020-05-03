@@ -50,6 +50,7 @@ var app = new Vue({
   }),
 
   created() {
+    this.retrieveSettings();
     this.getFishData();
     this.getBugData();
     interval = setInterval(() => this.now = new Date(), 1000);
@@ -225,6 +226,42 @@ var app = new Vue({
       }
     },
 
+    retrieveSettings: function() {
+      var vm = this;
+      var settings = JSON.parse(localStorage.getItem('ac_nh_critters_settings'));
+      if (!settings) { return; }
+
+      for (var property in settings) {
+        vm[property] = settings[property];
+      }
+    },
+
+    storeSettings: function() {
+      var vm = this;
+      var settings = {
+        toggle_fish_lookup_time: vm.toggle_fish_lookup_time,
+        toggle_bug_lookup_time: vm.toggle_bug_lookup_time,
+        fish_lookup_time_input: vm.fish_lookup_time_input,
+        bug_lookup_time_input: vm.bug_lookup_time_input,
+        fish_lookup_time: vm.fish_lookup_time,
+        bug_lookup_time: vm.bug_lookup_time,
+        toggle_fish_hemisphere: vm.toggle_fish_hemisphere,
+        toggle_bug_hemisphere: vm.toggle_bug_hemisphere,
+        fish_high_price_threshold: vm.fish_high_price_threshold,
+        bug_high_price_threshold: vm.bug_high_price_threshold,
+        fish_month_filter: vm.fish_month_filter,
+        bug_month_filter: vm.bug_month_filter,
+        fish_group_by: vm.fish_group_by,
+        bug_group_by: vm.bug_group_by,
+      };
+
+      localStorage.setItem('ac_nh_critters_settings', JSON.stringify(settings));
+    },
+
+    resetSettings: function() {
+      localStorage.removeItem('ac_nh_critters_settings');
+    },
+
   },
 
   watch: {
@@ -242,36 +279,72 @@ var app = new Vue({
       }
     },
 
+    toggle_fish_lookup_time: function(new_val, old_val) {
+      var vm = this;
+      vm.storeSettings();
+    },
+
+    toggle_bug_lookup_time: function(new_val, old_val) {
+      var vm = this;
+      vm.storeSettings();
+    },
+
     fish_lookup_time_input: function(new_val, old_val) {
       var vm = this;
       vm.fish_lookup_time = generateDate(new_val);
       vm.filterFishData();
+      vm.storeSettings();
     },
 
     bug_lookup_time_input: function(new_val, old_val) {
       var vm = this;
       vm.bug_lookup_time = generateDate(new_val);
       vm.filterBugData();
+      vm.storeSettings();
     },
 
     toggle_fish_hemisphere: function(new_val, old_val) {
       var vm = this;
       vm.filterFishData();
+      vm.storeSettings();
     },
 
     toggle_bug_hemisphere: function(new_val, old_val) {
       var vm = this;
       vm.filterBugData();
+      vm.storeSettings();
+    },
+
+    fish_high_price_threshold: function(new_val, old_val) {
+      var vm = this;
+      vm.storeSettings();
+    },
+
+    bug_high_price_threshold: function(new_val, old_val) {
+      var vm = this;
+      vm.storeSettings();
     },
 
     fish_month_filter: function(new_val, old_val) {
       var vm = this;
       vm.filterFishData();
+      vm.storeSettings();
     },
 
     bug_month_filter: function(new_val, old_val) {
       var vm = this;
       vm.filterBugData();
+      vm.storeSettings();
+    },
+
+    fish_group_by: function(new_val, old_val) {
+      var vm = this;
+      vm.storeSettings();
+    },
+
+    bug_group_by: function(new_val, old_val) {
+      var vm = this;
+      vm.storeSettings();
     },
 
   },
