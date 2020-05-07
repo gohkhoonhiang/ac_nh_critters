@@ -197,7 +197,7 @@
                             <td>
                               <v-text-field v-model="fish_search" label="Filter name" clearable></v-text-field>
                             </td>
-                            <td colspan="3"></td>
+                            <td :colspan="fish_group_by ? 2 : 3"></td>
 
                             <td>
                               <v-row align="center">
