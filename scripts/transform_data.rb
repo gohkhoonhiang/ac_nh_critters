@@ -128,7 +128,6 @@ def extract_hours(s, e)
   while (stepped_start_time = stepped_start_time + interval) < end_time
     hours << stepped_start_time.hour
   end
-  hours << end_time.hour
 
   hours
 end
