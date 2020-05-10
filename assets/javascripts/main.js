@@ -230,6 +230,18 @@ var app = new Vue({
       }
     },
 
+    clearAllFishFilters: function() {
+      var vm = this;
+      vm.fish_search = '';
+      vm.fish_month_filter = null;
+    },
+
+    clearAllBugFilters: function() {
+      var vm = this;
+      vm.bug_search = '';
+      vm.bug_month_filter = null;
+    },
+
     retrieveSettings: function() {
       var vm = this;
       var settings = JSON.parse(localStorage.getItem('ac_nh_critters_settings'));
