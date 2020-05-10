@@ -148,7 +148,7 @@ def normalize(s)
   elsif time_range?(s)
     normalize_time(s)
   else
-    s
+    normalize_string(s)
   end
 end
 
@@ -165,4 +165,10 @@ end
 
 def normalize_time(s)
   s.gsub("AM","am").gsub("PM","pm").gsub(" ","")
+end
+
+def normalize_string(s)
+  tokens = snake_case(s).split('_')
+  tokens.first.capitalize!
+  tokens.join(' ')
 end
