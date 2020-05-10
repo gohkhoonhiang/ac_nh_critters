@@ -481,6 +481,7 @@
                       <v-data-table
                         :headers="fish_headers"
                         :items="complete_fish_data"
+                        :group-by="fish_group_by"
                         :search="fish_search"
                         :items-per-page="20"
                         :footer-props="{ itemsPerPageOptions: [20,50,100] }"
@@ -897,6 +898,7 @@
                       <v-data-table
                         :headers="bug_headers"
                         :items="complete_bug_data"
+                        :group-by="bug_group_by"
                         :search="bug_search"
                         :items-per-page="20"
                         :footer-props="{ itemsPerPageOptions: [20,50,100] }"
