@@ -75,6 +75,7 @@
             v-model="tab"
             background-color="toolbar"
             light
+            show-arrows
           >
 
             <v-tab key="fish_tab">
@@ -133,7 +134,9 @@
               </v-container>
 
               <v-card flat>
-                <v-tabs>
+                <v-tabs
+                  show-arrows
+                >
                   <v-tab key="current_hour_fish_tab">
                     Current
                     <v-icon left>mdi-clock</v-icon>
@@ -352,7 +355,9 @@
               </v-container>
 
               <v-card flat>
-                <v-tabs>
+                <v-tabs
+                  show-arrows
+                >
                   <v-tab key="current_hour_bug_tab">
                     Current
                     <v-icon left>mdi-clock</v-icon>
