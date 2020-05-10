@@ -482,9 +482,9 @@
                         :headers="fish_headers"
                         :items="complete_fish_data"
                         :search="fish_search"
+                        :items-per-page="20"
+                        :footer-props="{ itemsPerPageOptions: [20,50,100] }"
                         class="elevation-1"
-                        disable-pagination
-                        hide-default-footer
                       >
                         <template v-slot:item.price="{ item }">
                           <v-chip :color="highlightPrice(item.price, fish_high_price_threshold)">{{ item.price }}</v-chip>
@@ -898,9 +898,9 @@
                         :headers="bug_headers"
                         :items="complete_bug_data"
                         :search="bug_search"
+                        :items-per-page="20"
+                        :footer-props="{ itemsPerPageOptions: [20,50,100] }"
                         class="elevation-1"
-                        disable-pagination
-                        hide-default-footer
                       >
                         <template v-slot:item.price="{ item }">
                           <v-chip :color="highlightPrice(item.price, bug_high_price_threshold)">{{ item.price }}</v-chip>
