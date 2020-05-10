@@ -76,12 +76,16 @@ var app = new Vue({
 
     fish_group_by_keys: ['location', 'shadow_size'],
     fish_group_by: null,
+    current_hour_fish_group_by: null,
 
     bug_group_by_keys: ['location'],
     bug_group_by: null,
+    current_hour_bug_group_by: null,
 
     fish_search: '',
+    current_hour_fish_search: '',
     bug_search: '',
+    current_hour_bug_search: '',
 
     fish_data: [],
     northern_fish_data: [],
@@ -230,10 +234,22 @@ var app = new Vue({
       }
     },
 
+    clearCurrentHourFishFilters: function() {
+      var vm = this;
+      vm.current_hour_fish_search = '';
+      vm.fish_lookup_time_input = '';
+    },
+
     clearAllFishFilters: function() {
       var vm = this;
       vm.fish_search = '';
       vm.fish_month_filter = null;
+    },
+
+    clearCurrentHourBugFilters: function() {
+      var vm = this;
+      vm.current_hour_bug_search = '';
+      vm.bug_lookup_time_input = '';
     },
 
     clearAllBugFilters: function() {
@@ -262,7 +278,9 @@ var app = new Vue({
         fish_month_filter: vm.fish_month_filter,
         bug_month_filter: vm.bug_month_filter,
         fish_group_by: vm.fish_group_by,
+        current_hour_fish_group_by: vm.current_hour_fish_group_by,
         bug_group_by: vm.bug_group_by,
+        current_hour_bug_group_by: vm.current_hour_bug_group_by,
       };
 
       localStorage.setItem('ac_nh_critters_settings', JSON.stringify(settings));
@@ -350,7 +368,17 @@ var app = new Vue({
       vm.storeSettings();
     },
 
+    current_hour_fish_group_by: function(new_val, old_val) {
+      var vm = this;
+      vm.storeSettings();
+    },
+
     bug_group_by: function(new_val, old_val) {
+      var vm = this;
+      vm.storeSettings();
+    },
+
+    current_hour_bug_group_by: function(new_val, old_val) {
       var vm = this;
       vm.storeSettings();
     },

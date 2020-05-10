@@ -185,7 +185,7 @@
                               >
                                 <v-card-text>
                                   <v-select
-                                    v-model="fish_group_by"
+                                    v-model="current_hour_fish_group_by"
                                     prepend-icon="mdi-table-column-plus-after"
                                     :items="fish_group_by_keys"
                                     label="Group by"
@@ -199,7 +199,7 @@
                         </v-container>
 
                         <v-card-text class="font--text">
-                          <div class="subtitle-1 mb-1 font-weight-bold">Filters <v-btn text small @click="clearAllFishFilters">Clear all</v-btn></div>
+                          <div class="subtitle-1 mb-1 font-weight-bold">Filters <v-btn text small @click="clearCurrentHourFishFilters">Clear all</v-btn></div>
                         </v-card-text>
 
                         <v-container fluid>
@@ -218,7 +218,7 @@
                               >
                                 <v-card-text>
                                   <v-text-field
-                                    v-model="fish_search"
+                                    v-model="current_hour_fish_search"
                                     label="Filter name"
                                     clearable
                                     dense
@@ -259,8 +259,8 @@
                       <v-data-table
                         :headers="fish_headers"
                         :items="current_hour_fish_data"
-                        :group-by="fish_group_by"
-                        :search="fish_search"
+                        :group-by="current_hour_fish_group_by"
+                        :search="current_hour_fish_search"
                         class="elevation-1"
                         disable-pagination
                         hide-default-footer
@@ -603,7 +603,7 @@
                               >
                                 <v-card-text>
                                   <v-select
-                                    v-model="bug_group_by"
+                                    v-model="current_hour_bug_group_by"
                                     prepend-icon="mdi-table-column-plus-after"
                                     :items="bug_group_by_keys"
                                     label="Group by"
@@ -617,7 +617,7 @@
                         </v-container>
 
                         <v-card-text class="font--text">
-                          <div class="subtitle-1 mb-1 font-weight-bold">Filters <v-btn text small @click="clearAllBugFilters">Clear all</v-btn></div>
+                          <div class="subtitle-1 mb-1 font-weight-bold">Filters <v-btn text small @click="clearCurrentHourBugFilters">Clear all</v-btn></div>
                         </v-card-text>
 
                         <v-container fluid>
@@ -636,7 +636,7 @@
                               >
                                 <v-card-text>
                                   <v-text-field
-                                    v-model="bug_search"
+                                    v-model="current_hour_bug_search"
                                     label="Filter name"
                                     clearable
                                     dense
@@ -677,8 +677,8 @@
                       <v-data-table
                         :headers="bug_headers"
                         :items="current_hour_bug_data"
-                        :group-by="bug_group_by"
-                        :search="bug_search"
+                        :group-by="current_hour_bug_group_by"
+                        :search="current_hour_bug_search"
                         class="elevation-1"
                         disable-pagination
                         hide-default-footer
