@@ -465,6 +465,9 @@
                                     v-model="fish_month_filter"
                                     :items="month_names"
                                     label="Month"
+                                    multiple
+                                    chips
+                                    deletable-chips
                                     clearable
                                     dense
                                   ></v-select>
@@ -883,6 +886,9 @@
                                     v-model="bug_month_filter"
                                     :items="month_names"
                                     label="Month"
+                                    multiple
+                                    chips
+                                    deletable-chips
                                     clearable
                                     dense
                                   ></v-select>

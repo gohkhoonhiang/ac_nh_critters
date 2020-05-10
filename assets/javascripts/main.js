@@ -71,8 +71,8 @@ var app = new Vue({
 
     fish_high_price_threshold: 1000,
     bug_high_price_threshold: 1000,
-    fish_month_filter: null,
-    bug_month_filter: null,
+    fish_month_filter: [],
+    bug_month_filter: [],
 
     fish_group_by_keys: ['location', 'shadow_size'],
     fish_group_by: null,
@@ -205,7 +205,7 @@ var app = new Vue({
 
     filterComplete: function(data, selected_hemispheres, month_filter) {
       var vm = this;
-      return data.filter(row => selected_hemispheres.includes(row.hemisphere) && (!month_filter || row.month_names.includes(month_filter)));
+      return data.filter(row => selected_hemispheres.includes(row.hemisphere) && (!month_filter || month_filter.length === 0 || row.month_names.some(m => month_filter.includes(m))));
     },
 
     filterFishData: function() {
