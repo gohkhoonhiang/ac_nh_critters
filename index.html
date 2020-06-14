@@ -301,6 +301,10 @@
                         disable-pagination
                         hide-default-footer
                       >
+                        <template v-slot:item.name="{ item }">
+                          {{ item | new_this_month }}
+                        </template>
+
                         <template v-slot:item.price="{ item }">
                           <v-chip :color="highlightPrice(item.price, fish_high_price_threshold)">{{ item.price }}</v-chip>
                         </template>
@@ -722,6 +726,10 @@
                         disable-pagination
                         hide-default-footer
                       >
+                        <template v-slot:item.name="{ item }">
+                          {{ item | new_this_month }}
+                        </template>
+
                         <template v-slot:item.price="{ item }">
                           <v-chip :color="highlightPrice(item.price, bug_high_price_threshold)">{{ item.price }}</v-chip>
                         </template>

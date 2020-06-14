@@ -416,5 +416,20 @@ var app = new Vue({
       var month = value.getMonth();
       return month_names[month];
     },
+
+    new_this_month: function(value) {
+      if (!value) {
+        return '';
+      }
+
+      var now = new Date();
+      var last_month = now.getMonth();
+      var this_month = now.getMonth() + 1;
+      if (!value.months.includes(last_month) && value.months.includes(this_month)) {
+          return `${value.name} (NEW!)`;
+      } else {
+          return value.name;
+      }
+    }
   },
 });
