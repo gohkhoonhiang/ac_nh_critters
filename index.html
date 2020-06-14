@@ -293,6 +293,95 @@
                   </v-tab-item>
 
                   <v-tab-item key="this_month_fish_tab">
+                    <v-container>
+                      <v-card
+                        class="mx-auto"
+                        color="secondary"
+                        flat
+                      >
+                        <v-container fluid>
+                          <v-row>
+                            <v-col
+                              cols="12"
+                              :xl="6"
+                              :lg="6"
+                              :md="6"
+                              :sm="12"
+                              :xs="12"
+                            >
+                              <v-card
+                                 color="rgba(255, 255, 255, 0)"
+                                 flat
+                              >
+                                <v-card-text>
+                                  <v-select
+                                    v-model="fish_group_by"
+                                    prepend-icon="mdi-table-column-plus-after"
+                                    :items="fish_group_by_keys"
+                                    label="Group by"
+                                    clearable
+                                    dense
+                                  ></v-select>
+                                </v-card-text>
+                              </v-card>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+
+                        <v-card-text class="font--text">
+                          <div class="subtitle-1 mb-1 font-weight-bold">Filters <v-btn text small @click="clearAllFishFilters">Clear all</v-btn></div>
+                        </v-card-text>
+
+                        <v-container fluid>
+                          <v-row dense>
+                            <v-col
+                              cols="12"
+                              :xl="6"
+                              :lg="6"
+                              :md="6"
+                              :sm="12"
+                              :xs="12"
+                            >
+                              <v-card
+                                color="rgba(255, 255, 255, 0)"
+                                flat
+                              >
+                                <v-card-text>
+                                  <v-text-field
+                                    v-model="fish_search"
+                                    label="Filter name"
+                                    clearable
+                                    dense
+                                  ></v-text-field>
+                                </v-card-text>
+                              </v-card>
+                            </v-col>
+
+                            <v-col
+                              cols="12"
+                              :xl="6"
+                              :lg="6"
+                              :md="6"
+                              :sm="12"
+                              :xs="12"
+                            >
+                              <v-card
+                                color="rgba(255, 255, 255, 0)"
+                                flat
+                              >
+                                <v-card-text>
+                                  <v-switch
+                                    v-model="toggle_fish_new_this_month"
+                                    label="New This Month"
+                                  ></v-switch>
+                                </v-card-text>
+                              </v-card>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+                      </v-card>
+                    </v-container>
+
                     <v-card flat>
                       <v-data-table
                         :headers="fish_headers"
@@ -718,6 +807,95 @@
                   </v-tab-item>
 
                   <v-tab-item key="this_month_bug_tab">
+                    <v-container>
+                      <v-card
+                        class="mx-auto"
+                        color="secondary"
+                        flat
+                      >
+                        <v-container fluid>
+                          <v-row>
+                            <v-col
+                              cols="12"
+                              :xl="6"
+                              :lg="6"
+                              :md="6"
+                              :sm="12"
+                              :xs="12"
+                            >
+                              <v-card
+                                 color="rgba(255, 255, 255, 0)"
+                                 flat
+                              >
+                                <v-card-text>
+                                  <v-select
+                                    v-model="bug_group_by"
+                                    prepend-icon="mdi-table-column-plus-after"
+                                    :items="bug_group_by_keys"
+                                    label="Group by"
+                                    clearable
+                                    dense
+                                  ></v-select>
+                                </v-card-text>
+                              </v-card>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+
+                        <v-card-text class="font--text">
+                          <div class="subtitle-1 mb-1 font-weight-bold">Filters <v-btn text small @click="clearAllFishFilters">Clear all</v-btn></div>
+                        </v-card-text>
+
+                        <v-container fluid>
+                          <v-row dense>
+                            <v-col
+                              cols="12"
+                              :xl="6"
+                              :lg="6"
+                              :md="6"
+                              :sm="12"
+                              :xs="12"
+                            >
+                              <v-card
+                                color="rgba(255, 255, 255, 0)"
+                                flat
+                              >
+                                <v-card-text>
+                                  <v-text-field
+                                    v-model="bug_search"
+                                    label="Filter name"
+                                    clearable
+                                    dense
+                                  ></v-text-field>
+                                </v-card-text>
+                              </v-card>
+                            </v-col>
+
+                            <v-col
+                              cols="12"
+                              :xl="6"
+                              :lg="6"
+                              :md="6"
+                              :sm="12"
+                              :xs="12"
+                            >
+                              <v-card
+                                color="rgba(255, 255, 255, 0)"
+                                flat
+                              >
+                                <v-card-text>
+                                  <v-switch
+                                    v-model="toggle_bug_new_this_month"
+                                    label="New This Month"
+                                  ></v-switch>
+                                </v-card-text>
+                              </v-card>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+                      </v-card>
+                    </v-container>
+
                     <v-card flat>
                       <v-data-table
                         :headers="bug_headers"
