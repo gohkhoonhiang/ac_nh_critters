@@ -142,7 +142,7 @@ var app = new Vue({
     getFishData: function() {
       var vm = this;
       $.ajax({
-        url: 'https://raw.githubusercontent.com/rebekahgkh/ac_nh_critters/master/data/combined_fish.json',
+        url: 'https://raw.githubusercontent.com/gohkhoonhiang/ac_nh_critters/master/data/combined_fish.json',
         method: 'GET'
       }).then(function (data) {
         var fish_data = JSON.parse(data).data;
@@ -160,7 +160,7 @@ var app = new Vue({
     getBugData: function() {
       var vm = this;
       $.ajax({
-        url: 'https://raw.githubusercontent.com/rebekahgkh/ac_nh_critters/master/data/combined_bug.json',
+        url: 'https://raw.githubusercontent.com/gohkhoonhiang/ac_nh_critters/master/data/combined_bug.json',
         method: 'GET'
       }).then(function (data) {
         var bug_data = JSON.parse(data).data;
