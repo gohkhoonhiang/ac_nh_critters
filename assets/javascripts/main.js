@@ -526,11 +526,13 @@ var app = new Vue({
 
     donated_fishes: function(new_val, old_val) {
       var vm = this;
+      vm.filterFishData();
       vm.storeSettings();
     },
 
     donated_bugs: function(new_val, old_val) {
       var vm = this;
+      vm.filterBugData();
       vm.storeSettings();
     },
 
