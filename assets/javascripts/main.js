@@ -1,3 +1,5 @@
+var latest_data_version = '2bcad07';
+
 var month_names = [
   "Jan",
   "Feb",
@@ -67,8 +69,11 @@ var app = new Vue({
 
   created() {
     this.retrieveSettings();
-    this.getFishData();
-    this.getBugData();
+    if (this.data_version !== latest_data_version) {
+      this.getFishData();
+      this.getBugData();
+      this.data_version = latest_data_version;
+    }
     interval = setInterval(() => this.now = new Date(), 1000);
   },
 
@@ -76,6 +81,8 @@ var app = new Vue({
     now: new Date(),
     month_names: month_names,
     tab: null,
+
+    data_version: null,
 
     fish_lookup_time_input: null,
     fish_lookup_time: null,
@@ -329,6 +336,23 @@ var app = new Vue({
     storeSettings: function() {
       var vm = this;
       var settings = {
+        data_version: vm.data_version,
+        fish_data: vm.fish_data,
+        northern_fish_data: vm.northern_fish_data,
+        southern_fish_data: vm.southern_fish_data,
+        current_hour_fish_data: vm.current_hour_fish_data,
+        outgoing_fish_data: vm.outgoing_fish_data,
+        incoming_fish_data: vm.incoming_fish_data,
+        this_month_fish_data: vm.this_month_fish_data,
+        complete_fish_data: vm.complete_fish_data,
+        bug_data: vm.bug_data,
+        northern_bug_data: vm.northern_bug_data,
+        southern_bug_data: vm.southern_bug_data,
+        current_hour_bug_data: vm.current_hour_bug_data,
+        outgoing_bug_data: vm.outgoing_bug_data,
+        incoming_bug_data: vm.incoming_bug_data,
+        this_month_bug_data: vm.this_month_bug_data,
+        complete_bug_data: vm.complete_bug_data,
         toggle_fish_hemisphere: vm.toggle_fish_hemisphere,
         toggle_bug_hemisphere: vm.toggle_bug_hemisphere,
         fish_high_price_threshold: vm.fish_high_price_threshold,
@@ -353,10 +377,18 @@ var app = new Vue({
   },
 
   watch: {
+    data_version: function(new_val, old_val) {
+      var vm = this;
+      if (new_val !== old_val) {
+        vm.storeSettings();
+      }
+    },
+
     fish_data: function(new_val, old_val) {
       var vm = this;
       if (new_val.length > 0) {
         vm.filterFishData();
+        vm.storeSettings();
       }
     },
 
@@ -364,6 +396,7 @@ var app = new Vue({
       var vm = this;
       if (new_val.length > 0) {
         vm.filterBugData();
+        vm.storeSettings();
       }
     },
 
