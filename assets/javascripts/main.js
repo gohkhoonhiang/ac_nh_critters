@@ -32,6 +32,22 @@ var generateDate = function(time_value) {
   return new Date(year, month, day, hour, minute, 0);
 };
 
+var hasElement = function(array, value) {
+  return array.filter(ele => ele === value).length > 0;
+};
+
+var addElement = function(array, value) {
+  return array.concat(value);
+};
+
+var removeElement = function(array, value) {
+  var foundIndex = array.indexOf(value);
+  if (foundIndex >= 0) {
+    array.splice(foundIndex, 1);
+  }
+  return array;
+};
+
 var app = new Vue({
   el: '#app',
   vuetify: new Vuetify({
@@ -76,6 +92,9 @@ var app = new Vue({
     fish_month_filter: [],
     bug_month_filter: [],
 
+    donated_fishes: [],
+    donated_bugs: [],
+
     fish_group_by_keys: ['location', 'shadow_size'],
     fish_group_by: null,
     current_hour_fish_group_by: null,
@@ -111,6 +130,7 @@ var app = new Vue({
       { text: 'Time Range', filterable: false, value: 'time' },
       { text: 'Months', filterable: false, value: 'month_names' },
       { text: 'Hemisphere', filterable: false, value: 'hemisphere' },
+      { text: 'Donated?', filterable: false, value: 'donated' },
     ],
 
     bug_data: [],
@@ -134,6 +154,7 @@ var app = new Vue({
       { text: 'Time Range', filterable: false, value: 'time' },
       { text: 'Months', filterable: false, value: 'month_names' },
       { text: 'Hemisphere', filterable: false, value: 'hemisphere' },
+      { text: 'Donated?', filterable: false, value: 'donated' },
     ],
 
   },
@@ -150,6 +171,7 @@ var app = new Vue({
           var updated_row = row;
           updated_row.month_names = convertMonths(row.months);
           updated_row.hemisphere = normalizeHemisphere(row.hemisphere);
+          updated_row.donated = hasElement(vm.donated_fishes, updated_row.name);
           return updated_row;
         });
 
@@ -168,6 +190,7 @@ var app = new Vue({
           var updated_row = row;
           updated_row.month_names = convertMonths(row.months);
           updated_row.hemisphere = normalizeHemisphere(row.hemisphere);
+          updated_row.donated = hasElement(vm.donated_bugs, updated_row.name);
           return updated_row;
         });
 
@@ -243,6 +266,32 @@ var app = new Vue({
       }
     },
 
+    updateDonatedFish: function(row) {
+      var vm = this;
+      if (row.donated) {
+        if (!hasElement(vm.donated_fishes, row.name)) {
+          vm.donated_fishes = addElement(vm.donated_fishes, row.name);
+        }
+      } else {
+        if (hasElement(vm.donated_fishes, row.name)) {
+          vm.donated_fishes = removeElement(vm.donated_fishes, row.name);
+        }
+      }
+    },
+
+    updateDonatedBug: function(row) {
+      var vm = this;
+      if (row.donated) {
+        if (!hasElement(vm.donated_bugs, row.name)) {
+          vm.donated_bugs = addElement(vm.donated_bugs, row.name);
+        }
+      } else {
+        if (hasElement(vm.donated_bugs, row.name)) {
+          vm.donated_bugs = removeElement(vm.donated_bugs, row.name);
+        }
+      }
+    },
+
     clearCurrentHourFishFilters: function() {
       var vm = this;
       vm.current_hour_fish_search = '';
@@ -290,6 +339,8 @@ var app = new Vue({
         current_hour_fish_group_by: vm.current_hour_fish_group_by,
         bug_group_by: vm.bug_group_by,
         current_hour_bug_group_by: vm.current_hour_bug_group_by,
+        donated_fishes: vm.donated_fishes,
+        donated_bugs: vm.donated_bugs,
       };
 
       localStorage.setItem('ac_nh_critters_settings', JSON.stringify(settings));
@@ -400,6 +451,16 @@ var app = new Vue({
     },
 
     current_hour_bug_group_by: function(new_val, old_val) {
+      var vm = this;
+      vm.storeSettings();
+    },
+
+    donated_fishes: function(new_val, old_val) {
+      var vm = this;
+      vm.storeSettings();
+    },
+
+    donated_bugs: function(new_val, old_val) {
       var vm = this;
       vm.storeSettings();
     },

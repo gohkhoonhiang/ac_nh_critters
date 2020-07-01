@@ -288,6 +288,15 @@
                             </v-chip>
                           </v-chip-group>
                         </template>
+
+                        <template v-slot:item.donated="{ item }">
+                          <v-switch
+                            :id="item.name"
+                            v-model="item.donated"
+                            :change="updateDonatedFish(item)"
+                          ></v-switch>
+                        </template>
+
                       </v-data-table>
                     </v-card>
                   </v-tab-item>
@@ -413,6 +422,14 @@
                           </v-chip-group>
                         </template>
 
+                        <template v-slot:item.donated="{ item }">
+                          <v-switch
+                            :id="item.name"
+                            v-model="item.donated"
+                            :change="updateDonatedFish(item)"
+                          ></v-switch>
+                        </template>
+
                       </v-data-table>
                     </v-card>
                   </v-tab-item>
@@ -445,6 +462,14 @@
                           </v-chip-group>
                         </template>
 
+                        <template v-slot:item.donated="{ item }">
+                          <v-switch
+                            :id="item.name"
+                            v-model="item.donated"
+                            :change="updateDonatedFish(item)"
+                          ></v-switch>
+                        </template>
+
                       </v-data-table>
                     </v-card>
                   </v-tab-item>
@@ -475,6 +500,14 @@
                               {{ month }}
                             </v-chip>
                           </v-chip-group>
+                        </template>
+
+                        <template v-slot:item.donated="{ item }">
+                          <v-switch
+                            :id="item.name"
+                            v-model="item.donated"
+                            :change="updateDonatedFish(item)"
+                          ></v-switch>
                         </template>
 
                       </v-data-table>
@@ -606,6 +639,15 @@
                             </v-chip>
                           </v-chip-group>
                         </template>
+
+                        <template v-slot:item.donated="{ item }">
+                          <v-switch
+                            :id="item.name"
+                            v-model="item.donated"
+                            :change="updateDonatedFish(item)"
+                          ></v-switch>
+                        </template>
+
                       </v-data-table>
                     </v-card>
                   </v-tab-item>
@@ -802,6 +844,15 @@
                             </v-chip>
                           </v-chip-group>
                         </template>
+
+                        <template v-slot:item.donated="{ item }">
+                          <v-switch
+                            :id="item.name"
+                            v-model="item.donated"
+                            :change="updateDonatedBug(item)"
+                          ></v-switch>
+                        </template>
+
                       </v-data-table>
                     </v-card>
                   </v-tab-item>
@@ -927,6 +978,14 @@
                           </v-chip-group>
                         </template>
 
+                        <template v-slot:item.donated="{ item }">
+                          <v-switch
+                            :id="item.name"
+                            v-model="item.donated"
+                            :change="updateDonatedBug(item)"
+                          ></v-switch>
+                        </template>
+
                       </v-data-table>
                     </v-card>
                   </v-tab-item>
@@ -959,6 +1018,14 @@
                           </v-chip-group>
                         </template>
 
+                        <template v-slot:item.donated="{ item }">
+                          <v-switch
+                            :id="item.name"
+                            v-model="item.donated"
+                            :change="updateDonatedBug(item)"
+                          ></v-switch>
+                        </template>
+
                       </v-data-table>
                     </v-card>
                   </v-tab-item>
@@ -989,6 +1056,14 @@
                               {{ month }}
                             </v-chip>
                           </v-chip-group>
+                        </template>
+
+                        <template v-slot:item.donated="{ item }">
+                          <v-switch
+                            :id="item.name"
+                            v-model="item.donated"
+                            :change="updateDonatedBug(item)"
+                          ></v-switch>
                         </template>
 
                       </v-data-table>
@@ -1119,6 +1194,15 @@
                             </v-chip>
                           </v-chip-group>
                         </template>
+
+                        <template v-slot:item.donated="{ item }">
+                          <v-switch
+                            :id="item.name"
+                            v-model="item.donated"
+                            :change="updateDonatedBug(item)"
+                          ></v-switch>
+                        </template>
+
                       </v-data-table>
                     </v-card>
                   </v-tab-item>
