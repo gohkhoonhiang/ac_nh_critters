@@ -312,7 +312,7 @@
 
                         <template v-slot:item.donated="{ item }">
                           <v-switch
-                            :id="item.name"
+                            :id="'current_hour_fish_' + item.name + '_' + item.hemisphere"
                             v-model="item.donated"
                             :change="updateDonatedFish(item)"
                           ></v-switch>
@@ -466,7 +466,7 @@
 
                         <template v-slot:item.donated="{ item }">
                           <v-switch
-                            :id="item.name"
+                            :id="'this_month_fish_' + item.name + '_' + item.hemisphere"
                             v-model="item.donated"
                             :change="updateDonatedFish(item)"
                           ></v-switch>
@@ -506,7 +506,7 @@
 
                         <template v-slot:item.donated="{ item }">
                           <v-switch
-                            :id="item.name"
+                            :id="'outgoing_fish_' + item.name + '_' + item.hemisphere"
                             v-model="item.donated"
                             :change="updateDonatedFish(item)"
                           ></v-switch>
@@ -546,7 +546,7 @@
 
                         <template v-slot:item.donated="{ item }">
                           <v-switch
-                            :id="item.name"
+                            :id="'incoming_fish_' + item.name + '_' + item.hemisphere"
                             v-model="item.donated"
                             :change="updateDonatedFish(item)"
                           ></v-switch>
@@ -705,7 +705,7 @@
 
                         <template v-slot:item.donated="{ item }">
                           <v-switch
-                            :id="item.name"
+                            :id="'complete_fish_' + item.name + '_' + item.hemisphere"
                             v-model="item.donated"
                             :change="updateDonatedFish(item)"
                           ></v-switch>
@@ -931,7 +931,7 @@
 
                         <template v-slot:item.donated="{ item }">
                           <v-switch
-                            :id="item.name"
+                            :id="'current_hour_bug_' +item.name + '_' + item.hemisphere"
                             v-model="item.donated"
                             :change="updateDonatedBug(item)"
                           ></v-switch>
@@ -1085,7 +1085,7 @@
 
                         <template v-slot:item.donated="{ item }">
                           <v-switch
-                            :id="item.name"
+                            :id="'this_month_bug_' + item.name + '_' + item.hemisphere"
                             v-model="item.donated"
                             :change="updateDonatedBug(item)"
                           ></v-switch>
@@ -1125,7 +1125,7 @@
 
                         <template v-slot:item.donated="{ item }">
                           <v-switch
-                            :id="item.name"
+                            :id="'outgoing_bug_' +item.name + '_' + item.hemisphere"
                             v-model="item.donated"
                             :change="updateDonatedBug(item)"
                           ></v-switch>
@@ -1165,7 +1165,7 @@
 
                         <template v-slot:item.donated="{ item }">
                           <v-switch
-                            :id="item.name"
+                            :id="'incoming_bug_' + item.name + '_' + item.hemisphere"
                             v-model="item.donated"
                             :change="updateDonatedBug(item)"
                           ></v-switch>
@@ -1323,7 +1323,7 @@
 
                         <template v-slot:item.donated="{ item }">
                           <v-switch
-                            :id="item.name"
+                            :id="'complete_bug_' + item.name + '_' + item.hemisphere"
                             v-model="item.donated"
                             :change="updateDonatedBug(item)"
                           ></v-switch>
