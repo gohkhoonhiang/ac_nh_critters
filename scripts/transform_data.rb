@@ -3,6 +3,8 @@ require 'csv'
 
 InvalidFileFormat = Class.new(StandardError)
 
+ALL_HOURS = (0..23).to_a.freeze
+
 def combined_list(northern_list, southern_list, output)
   formatted_northern = format_data(northern_list, northern: true)
   formatted_southern = format_data(southern_list, northern: false)
@@ -12,13 +14,21 @@ def combined_list(northern_list, southern_list, output)
   File.write(output, { data: combined.sort_by { |row| row["name"] } }.to_json)
 end
 
-# example
+# Fishes example
 # Raw data: 
 # Name,Image,Price,Location,Shadow size,Time,Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec
 # Anchovy,,200,Sea,2,4 AM - 9 PM,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE
 #
 # will be converted to:
 # Formatted data: {"name"=>"Anchovy", "image"=>nil, "price"=>200, "location"=>"Sea", "shadow_size"=>2, "time"=>"4 am - 9 pm", "jan"=>true, "feb"=>true, "mar"=>true, "apr"=>true, "may"=>true, "jun"=>true, "jul"=>true, "aug"=>true, "sep"=>true, "oct"=>true, "nov"=>true, "dec"=>true}
+
+# Deep sea creatures example
+# Raw data:
+# Name,Image,Price,Shadow size,Swimming pattern,Time,Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec
+# Seaweed,,600,Large,Stationary,All Day,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,TRUE,TRUE
+#
+# will be converted to:
+# Formatted data: {"name"=>"Seaweed", "image"=>nil, "price"=>600, "shadow_size"=>"Large", "swimming_pattern" => "Stationary", "time"=>"All Day", "jan"=>true, "feb"=>true, "mar"=>true, "apr"=>true, "may"=>true, "jun"=>true, "jul"=>true, "aug"=>false, "sep"=>false, "oct"=>true, "nov"=>true, "dec"=>true}
 def format_data(file_path, northern: true)
   raise InvalidFileFormat unless File.extname(file_path) == ".csv"
 
@@ -30,11 +40,17 @@ def format_data(file_path, northern: true)
   format_rows(transformed, northern)
 end
 
-# example
+# Fishes example
 # Raw data: {"name"=>"Anchovy", "image"=>nil, "price"=>"200", "location"=>"Sea", "shadow_size"=>"2", "time"=>"4 AM - 9 PM", "jan"=>true, "feb"=>true, "mar"=>true, "apr"=>true, "may"=>true, "jun"=>true, "jul"=>true, "aug"=>true, "sep"=>true, "oct"=>true, "nov"=>true, "dec"=>true}
 #
 # will be converted to:
 # Formatted data: {"name"=>"Anchovy", "image"=>nil, "price"=>200, "location"=>"Sea", "shadow_size"=>2, "time"=>"4 AM - 9 PM", "jan"=>true, "feb"=>true, "mar"=>true, "apr"=>true, "may"=>true, "jun"=>true, "jul"=>true, "aug"=>true, "sep"=>true, "oct"=>true, "nov"=>true, "dec"=>true, "months"=>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "all_day"=>false, "hours"=>[4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], "hemisphere"=>"northern"}
+
+# Deep sea creatures example
+# Raw data: {"name"=>"Seaweed", "image"=>nil, "price"=>600, "shadow_size"=>"Large", "swimming_pattern"=>"Stationary", "time"=>"All Day", "jan"=>true, "feb"=>true, "mar"=>true, "apr"=>true, "may"=>true, "jun"=>true, "jul"=>true, "aug"=>false, "sep"=>false, "oct"=>true, "nov"=>true, "dec"=>true}
+#
+# will be converted to:
+# Formatted data: {"name"=>"Seaweed", "image"=>nil, "price"=>600, "shadow_size"=>"Large", "swimming_pattern"=>"Stationary", "time"=>"All Day", "jan"=>true, "feb"=>true, "mar"=>true, "apr"=>true, "may"=>true, "jun"=>true, "jul"=>true, "aug"=>false, "sep"=>false, "oct"=>true, "nov"=>true, "dec"=>true, "months"=>[1, 2, 3, 4, 5, 6, 7, 10, 11, 12], "all_day"=>true, "hours"=>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23], "hemisphere"=>"northern"}
 def format_rows(rows, northern)
   rows.each do |row|
     format_row(row, northern)
@@ -45,7 +61,7 @@ end
 def format_row(row, northern)
   row["months"] = extract_months(row)
   row["price"] = row["price"].to_i
-  row["shadow_size"] = row["shadow_size"].to_i if row["shadow_size"]
+  row["shadow_size"] = row["shadow_size"].to_i if row["shadow_size"] && row["shadow_size"].match?(/\d/)
   
   all_day, hours = determine_time_range(row)
   row["all_day"] = all_day
@@ -76,7 +92,7 @@ def determine_time_range(row)
   all_day = false
   hours = []
 
-  if row["time"] == "All day"
+  if (/All day/i).match?(row["time"])
     all_day = true
     hours = (0..23).to_a
   elsif /.*\&.*/.match?(row["time"])
@@ -86,6 +102,9 @@ def determine_time_range(row)
       s, e = range
       acc += extract_hours(s, e)
     end
+  elsif /\?/.match?(row["time"])
+    all_day = true
+    hours = ALL_HOURS
   else
     s, e = row["time"].split("-").map { |t| t.strip }
     hours = extract_hours(s, e)
@@ -169,6 +188,8 @@ end
 
 def normalize_string(s)
   tokens = snake_case(s).split('_')
+  return s if tokens.empty?
+
   tokens.first.capitalize!
   tokens.join(' ')
 end
