@@ -95,6 +95,10 @@
               Bug
               <v-icon left>mdi-bug</v-icon>
             </v-tab>
+            <v-tab key="deep_sea_creature_tab">
+              Deep-sea Creature
+              <v-icon left>mdi-star</v-icon>
+            </v-tab>
             <v-tab key="help_tab">
               Help
               <v-icon left>mdi-help</v-icon>
@@ -1334,6 +1338,625 @@
                   </v-tab-item>
                 </v-tabs>
 
+              </v-card>
+            </v-tab-item>
+
+            <v-tab-item key="deep_sea_creature_tab">
+
+              <v-container>
+                <v-card
+                  class="mx-auto"
+                  color="secondary"
+                  light
+                  outlined
+                >
+                  <v-card-text class="font--text">
+                    <div class="subtitle-1 mb-1 font-weight-bold">Global Controls</div>
+                    <div class="caption mb-1 font-weight-bold">Applies to all deep sea creature list views.</div>
+                    <v-row>
+                      <v-checkbox
+                        v-model="toggle_deep_sea_creature_hemisphere"
+                        class="mx-2"
+                        label="Northern"
+                        value="N"
+                      ></v-checkbox>
+                      <v-checkbox
+                        v-model="toggle_deep_sea_creature_hemisphere"
+                        class="mx-2"
+                        label="Southern"
+                        value="S"
+                      ></v-checkbox>
+                    </v-row>
+
+                    <v-row>
+                      <v-text-field
+                        v-model="deep_sea_creature_high_price_threshold"
+                        prepend-icon="mdi-currency-usd"
+                        label="High Price Threshold"
+                        type="number"
+                        hint="Set a threshold for high price, deep sea creatures selling at this price or higher will be highlighted"
+                        persistent-hint
+                      ></v-text-field>
+                    </v-row>
+
+                  </v-card-text>
+                </v-card>
+              </v-container>
+
+              <v-card flat>
+                <v-tabs
+                  show-arrows
+                >
+                  <v-tab key="current_hour_deep_sea_creature_tab">
+                    Current
+                    <v-icon left>mdi-clock</v-icon>
+                  </v-tab>
+                  <v-tab key="this_month_deep_sea_creature_tab">
+                    This Month
+                    <v-icon left>mdi-calendar</v-icon>
+                  </v-tab>
+                  <v-tab key="outgoing_deep_sea_creature_tab">
+                    Outgoing
+                    <v-icon left>mdi-arrow-right-bold</v-icon>
+                  </v-tab>
+                  <v-tab key="incoming_deep_sea_creature_tab">
+                    Incoming
+                    <v-icon left>mdi-arrow-left-bold</v-icon>
+                  </v-tab>
+                  <v-tab key="complete_deep_sea_creature_tab">
+                    Complete
+                    <v-icon left>mdi-view-list</v-icon>
+                  </v-tab>
+
+                  <v-tab-item key="current_hour_deep_sea_creature_tab">
+                    <v-container>
+                      <v-card
+                        class="mx-auto"
+                        color="secondary"
+                        flat
+                      >
+                        <v-container fluid>
+                          <v-row>
+                            <v-col
+                              cols="12"
+                              :xl="6"
+                              :lg="6"
+                              :md="6"
+                              :sm="12"
+                              :xs="12"
+                            >
+                              <v-card
+                                 color="rgba(255, 255, 255, 0)"
+                                 flat
+                              >
+                                <v-card-text>
+                                  <v-select
+                                    v-model="current_hour_deep_sea_creature_group_by"
+                                    prepend-icon="mdi-table-column-plus-after"
+                                    :items="deep_sea_creature_group_by_keys"
+                                    label="Group by"
+                                    clearable
+                                    dense
+                                  ></v-select>
+                                </v-card-text>
+                              </v-card>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+
+                        <v-card-text class="font--text">
+                          <div class="subtitle-1 mb-1 font-weight-bold">Filters <v-btn text small @click="clearCurrentHourFishFilters">Clear all</v-btn></div>
+                        </v-card-text>
+
+                        <v-container fluid>
+                          <v-row dense>
+                            <v-col
+                              cols="12"
+                              :xl="4"
+                              :lg="4"
+                              :md="4"
+                              :sm="12"
+                              :xs="12"
+                            >
+                              <v-card
+                                color="rgba(255, 255, 255, 0)"
+                                flat
+                              >
+                                <v-card-text>
+                                  <v-text-field
+                                    v-model="current_hour_deep_sea_creature_search"
+                                    label="Filter name"
+                                    clearable
+                                    dense
+                                  ></v-text-field>
+                                </v-card-text>
+                              </v-card>
+                            </v-col>
+
+                            <v-col
+                              cols="12"
+                              :xl="4"
+                              :lg="4"
+                              :md="4"
+                              :sm="12"
+                              :xs="12"
+                            >
+                              <v-card
+                                color="rgba(255, 255, 255, 0)"
+                                flat
+                              >
+                                <v-card-text>
+                                  <v-text-field
+                                    v-model="deep_sea_creature_lookup_time_input"
+                                    label="Lookup Time"
+                                    type="time"
+                                    clearable
+                                    dense
+                                  ></v-text-field>
+                                </v-card-text>
+                              </v-card>
+                            </v-col>
+
+                            <v-col
+                              cols="12"
+                              :xl="4"
+                              :lg="4"
+                              :md="4"
+                              :sm="12"
+                              :xs="12"
+                            >
+                              <v-card
+                                color="rgba(255, 255, 255, 0)"
+                                flat
+                              >
+                                <v-card-text>
+                                  <v-switch
+                                    v-model="toggle_deep_sea_creature_donated"
+                                    label="Not donated only"
+                                  ></v-switch>
+                                </v-card-text>
+                              </v-card>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+                      </v-card>
+                    </v-container>
+
+                    <v-card flat>
+                      <v-data-table
+                        :headers="deep_sea_creature_headers"
+                        :items="current_hour_deep_sea_creature_data"
+                        :group-by="current_hour_deep_sea_creature_group_by"
+                        :search="current_hour_deep_sea_creature_search"
+                        class="elevation-1"
+                        disable-pagination
+                        hide-default-footer
+                      >
+                        <template v-slot:item.price="{ item }">
+                          <v-chip :color="highlightPrice(item.price, deep_sea_creature_high_price_threshold)">{{ item.price }}</v-chip>
+                        </template>
+
+                        <template v-slot:item.month_names="{ item }">
+                          <v-chip-group
+                            column
+                          >
+                            <v-chip
+                              v-for="(month, i) in item.month_names"
+                              :key="i"
+                              small
+                              disabled
+                            >
+                              {{ month }}
+                            </v-chip>
+                          </v-chip-group>
+                        </template>
+
+                        <template v-slot:item.donated="{ item }">
+                          <v-switch
+                            :id="'current_hour_deep_sea_creature_' + item.name + '_' + item.hemisphere"
+                            v-model="item.donated"
+                            :change="updateDonatedFish(item)"
+                          ></v-switch>
+                        </template>
+
+                      </v-data-table>
+                    </v-card>
+                  </v-tab-item>
+
+                  <v-tab-item key="this_month_deep_sea_creature_tab">
+                    <v-container>
+                      <v-card
+                        class="mx-auto"
+                        color="secondary"
+                        flat
+                      >
+                        <v-container fluid>
+                          <v-row>
+                            <v-col
+                              cols="12"
+                              :xl="6"
+                              :lg="6"
+                              :md="6"
+                              :sm="12"
+                              :xs="12"
+                            >
+                              <v-card
+                                 color="rgba(255, 255, 255, 0)"
+                                 flat
+                              >
+                                <v-card-text>
+                                  <v-select
+                                    v-model="deep_sea_creature_group_by"
+                                    prepend-icon="mdi-table-column-plus-after"
+                                    :items="deep_sea_creature_group_by_keys"
+                                    label="Group by"
+                                    clearable
+                                    dense
+                                  ></v-select>
+                                </v-card-text>
+                              </v-card>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+
+                        <v-card-text class="font--text">
+                          <div class="subtitle-1 mb-1 font-weight-bold">Filters <v-btn text small @click="clearAllFishFilters">Clear all</v-btn></div>
+                        </v-card-text>
+
+                        <v-container fluid>
+                          <v-row dense>
+                            <v-col
+                              cols="12"
+                              :xl="4"
+                              :lg="4"
+                              :md="4"
+                              :sm="12"
+                              :xs="12"
+                            >
+                              <v-card
+                                color="rgba(255, 255, 255, 0)"
+                                flat
+                              >
+                                <v-card-text>
+                                  <v-text-field
+                                    v-model="deep_sea_creature_search"
+                                    label="Filter name"
+                                    clearable
+                                    dense
+                                  ></v-text-field>
+                                </v-card-text>
+                              </v-card>
+                            </v-col>
+
+                            <v-col
+                              cols="12"
+                              :xl="4"
+                              :lg="4"
+                              :md="4"
+                              :sm="12"
+                              :xs="12"
+                            >
+                              <v-card
+                                color="rgba(255, 255, 255, 0)"
+                                flat
+                              >
+                                <v-card-text>
+                                  <v-switch
+                                    v-model="toggle_deep_sea_creature_new_this_month"
+                                    label="New This Month"
+                                  ></v-switch>
+                                </v-card-text>
+                              </v-card>
+                            </v-col>
+
+                            <v-col
+                              cols="12"
+                              :xl="4"
+                              :lg="4"
+                              :md="4"
+                              :sm="12"
+                              :xs="12"
+                            >
+                              <v-card
+                                color="rgba(255, 255, 255, 0)"
+                                flat
+                              >
+                                <v-card-text>
+                                  <v-switch
+                                    v-model="toggle_deep_sea_creature_donated"
+                                    label="Not donated only"
+                                  ></v-switch>
+                                </v-card-text>
+                              </v-card>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+                      </v-card>
+                    </v-container>
+
+                    <v-card flat>
+                      <v-data-table
+                        :headers="deep_sea_creature_headers"
+                        :items="this_month_deep_sea_creature_data"
+                        class="elevation-1"
+                        disable-pagination
+                        hide-default-footer
+                      >
+                        <template v-slot:item.name="{ item }">
+                          {{ item | new_this_month }}
+                        </template>
+
+                        <template v-slot:item.price="{ item }">
+                          <v-chip :color="highlightPrice(item.price, deep_sea_creature_high_price_threshold)">{{ item.price }}</v-chip>
+                        </template>
+
+                        <template v-slot:item.month_names="{ item }">
+                          <v-chip-group
+                            column
+                          >
+                            <v-chip
+                              v-for="(month, i) in item.month_names"
+                              :key="i"
+                              small
+                              disabled
+                            >
+                              {{ month }}
+                            </v-chip>
+                          </v-chip-group>
+                        </template>
+
+                        <template v-slot:item.donated="{ item }">
+                          <v-switch
+                            :id="'this_month_deep_sea_creature_' + item.name + '_' + item.hemisphere"
+                            v-model="item.donated"
+                            :change="updateDonatedFish(item)"
+                          ></v-switch>
+                        </template>
+
+                      </v-data-table>
+                    </v-card>
+                  </v-tab-item>
+
+                  <v-tab-item key="outgoing_deep_sea_creature_tab">
+                    <v-card flat>
+                      <v-data-table
+                        :headers="deep_sea_creature_headers"
+                        :items="outgoing_deep_sea_creature_data"
+                        class="elevation-1"
+                        disable-pagination
+                        hide-default-footer
+                      >
+                        <template v-slot:item.price="{ item }">
+                          <v-chip :color="highlightPrice(item.price, deep_sea_creature_high_price_threshold)">{{ item.price }}</v-chip>
+                        </template>
+
+                        <template v-slot:item.month_names="{ item }">
+                          <v-chip-group
+                            column
+                          >
+                            <v-chip
+                              v-for="(month, i) in item.month_names"
+                              :key="i"
+                              small
+                              disabled
+                            >
+                              {{ month }}
+                            </v-chip>
+                          </v-chip-group>
+                        </template>
+
+                        <template v-slot:item.donated="{ item }">
+                          <v-switch
+                            :id="'outgoing_deep_sea_creature_' + item.name + '_' + item.hemisphere"
+                            v-model="item.donated"
+                            :change="updateDonatedFish(item)"
+                          ></v-switch>
+                        </template>
+
+                      </v-data-table>
+                    </v-card>
+                  </v-tab-item>
+
+                  <v-tab-item key="incoming_deep_sea_creature_tab">
+                    <v-card flat>
+                      <v-data-table
+                        :headers="deep_sea_creature_headers"
+                        :items="incoming_deep_sea_creature_data"
+                        class="elevation-1"
+                        disable-pagination
+                        hide-default-footer
+                      >
+                        <template v-slot:item.price="{ item }">
+                          <v-chip :color="highlightPrice(item.price, deep_sea_creature_high_price_threshold)">{{ item.price }}</v-chip>
+                        </template>
+
+                        <template v-slot:item.month_names="{ item }">
+                          <v-chip-group
+                            column
+                          >
+                            <v-chip
+                              v-for="(month, i) in item.month_names"
+                              :key="i"
+                              small
+                              disabled
+                            >
+                              {{ month }}
+                            </v-chip>
+                          </v-chip-group>
+                        </template>
+
+                        <template v-slot:item.donated="{ item }">
+                          <v-switch
+                            :id="'incoming_deep_sea_creature_' + item.name + '_' + item.hemisphere"
+                            v-model="item.donated"
+                            :change="updateDonatedFish(item)"
+                          ></v-switch>
+                        </template>
+
+                      </v-data-table>
+                    </v-card>
+                  </v-tab-item>
+
+                  <v-tab-item key="complete_deep_sea_creature_tab">
+                    <v-container>
+                      <v-card
+                        class="mx-auto"
+                        color="secondary"
+                        flat
+                      >
+                        <v-container fluid>
+                          <v-row>
+                            <v-col
+                              cols="12"
+                              :xl="6"
+                              :lg="6"
+                              :md="6"
+                              :sm="12"
+                              :xs="12"
+                            >
+                              <v-card
+                                 color="rgba(255, 255, 255, 0)"
+                                 flat
+                              >
+                                <v-card-text>
+                                  <v-select
+                                    v-model="deep_sea_creature_group_by"
+                                    prepend-icon="mdi-table-column-plus-after"
+                                    :items="deep_sea_creature_group_by_keys"
+                                    label="Group by"
+                                    clearable
+                                    dense
+                                  ></v-select>
+                                </v-card-text>
+                              </v-card>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+
+                        <v-card-text class="font--text">
+                          <div class="subtitle-1 mb-1 font-weight-bold">Filters <v-btn text small @click="clearAllFishFilters">Clear all</v-btn></div>
+                        </v-card-text>
+
+                        <v-container fluid>
+                          <v-row dense>
+                            <v-col
+                              cols="12"
+                              :xl="4"
+                              :lg="4"
+                              :md="4"
+                              :sm="12"
+                              :xs="12"
+                            >
+                              <v-card
+                                color="rgba(255, 255, 255, 0)"
+                                flat
+                              >
+                                <v-card-text>
+                                  <v-text-field
+                                    v-model="deep_sea_creature_search"
+                                    label="Filter name"
+                                    clearable
+                                    dense
+                                  ></v-text-field>
+                                </v-card-text>
+                              </v-card>
+                            </v-col>
+
+                            <v-col
+                              cols="12"
+                              :xl="4"
+                              :lg="4"
+                              :md="4"
+                              :sm="12"
+                              :xs="12"
+                            >
+                              <v-card
+                                color="rgba(255, 255, 255, 0)"
+                                flat
+                              >
+                                <v-card-text>
+                                  <v-select
+                                    v-model="deep_sea_creature_month_filter"
+                                    :items="month_names"
+                                    label="Month"
+                                    multiple
+                                    chips
+                                    deletable-chips
+                                    clearable
+                                    dense
+                                  ></v-select>
+                                </v-card-text>
+                              </v-card>
+                            </v-col>
+
+                            <v-col
+                              cols="12"
+                              :xl="4"
+                              :lg="4"
+                              :md="4"
+                              :sm="12"
+                              :xs="12"
+                            >
+                              <v-card
+                                color="rgba(255, 255, 255, 0)"
+                                flat
+                              >
+                                <v-card-text>
+                                  <v-switch
+                                    v-model="toggle_deep_sea_creature_donated"
+                                    label="Not donated only"
+                                  ></v-switch>
+                                </v-card-text>
+                              </v-card>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+                      </v-card>
+                    </v-container>
+
+                    <v-card flat>
+
+                      <v-data-table
+                        :headers="deep_sea_creature_headers"
+                        :items="complete_deep_sea_creature_data"
+                        :group-by="deep_sea_creature_group_by"
+                        :search="deep_sea_creature_search"
+                        :items-per-page="20"
+                        :footer-props="{ itemsPerPageOptions: [20,50,100] }"
+                        class="elevation-1"
+                      >
+                        <template v-slot:item.price="{ item }">
+                          <v-chip :color="highlightPrice(item.price, deep_sea_creature_high_price_threshold)">{{ item.price }}</v-chip>
+                        </template>
+
+                        <template v-slot:item.month_names="{ item }">
+                          <v-chip-group
+                            column
+                          >
+                            <v-chip
+                              v-for="(month, i) in item.month_names"
+                              :key="i"
+                              small
+                              disabled
+                            >
+                              {{ month }}
+                            </v-chip>
+                          </v-chip-group>
+                        </template>
+
+                        <template v-slot:item.donated="{ item }">
+                          <v-switch
+                            :id="'complete_deep_sea_creature_' + item.name + '_' + item.hemisphere"
+                            v-model="item.donated"
+                            :change="updateDonatedFish(item)"
+                          ></v-switch>
+                        </template>
+
+                      </v-data-table>
+                    </v-card>
+                  </v-tab-item>
+
+                </v-tabs>
               </v-card>
             </v-tab-item>
 

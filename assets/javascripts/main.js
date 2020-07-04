@@ -1,4 +1,4 @@
-var latest_data_version = '2bcad07';
+var latest_data_version = 'acff839';
 
 var month_names = [
   "Jan",
@@ -72,6 +72,7 @@ var app = new Vue({
     if (this.data_version !== latest_data_version) {
       this.getFishData();
       this.getBugData();
+      this.getDeepSeaCreatureData();
       this.data_version = latest_data_version;
     }
     interval = setInterval(() => this.now = new Date(), 1000);
@@ -96,13 +97,22 @@ var app = new Vue({
     toggle_bug_new_this_month: false,
     toggle_bug_donated: false,
 
+    deep_sea_creature_lookup_time_input: null,
+    deep_sea_creature_lookup_time: null,
+    toggle_deep_sea_creature_hemisphere: ['N','S'],
+    toggle_deep_sea_creature_new_this_month: false,
+    toggle_deep_sea_creature_donated: false,
+
     fish_high_price_threshold: 1000,
     bug_high_price_threshold: 1000,
+    deep_sea_creature_high_price_threshold: 1000,
     fish_month_filter: [],
     bug_month_filter: [],
+    deep_sea_creature_month_filter: [],
 
     donated_fishes: [],
     donated_bugs: [],
+    donated_deep_sea_creatures: [],
 
     fish_group_by_keys: ['location', 'shadow_size'],
     fish_group_by: null,
@@ -112,10 +122,16 @@ var app = new Vue({
     bug_group_by: null,
     current_hour_bug_group_by: null,
 
+    deep_sea_creature_group_by_keys: ['location', 'shadow_size'],
+    deep_sea_creature_group_by: null,
+    current_hour_deep_sea_creature_group_by: null,
+
     fish_search: '',
     current_hour_fish_search: '',
     bug_search: '',
     current_hour_bug_search: '',
+    deep_sea_creature_search: '',
+    current_hour_deep_sea_creature_search: '',
 
     fish_data: [],
     northern_fish_data: [],
@@ -166,6 +182,31 @@ var app = new Vue({
       { text: 'Donated?', filterable: false, value: 'donated' },
     ],
 
+    deep_sea_creature_data: [],
+    northern_deep_sea_creature_data: [],
+    southern_deep_sea_creature_data: [],
+    current_hour_deep_sea_creature_data: [],
+    outgoing_deep_sea_creature_data: [],
+    incoming_deep_sea_creature_data: [],
+    this_month_deep_sea_creature_data: [],
+    complete_deep_sea_creature_data: [],
+    deep_sea_creature_headers: [
+      {
+        text: 'Name',
+        align: 'start',
+        sortable: true,
+        filterable: true,
+        value: 'name',
+      },
+      { text: 'Price', filterable: false, value: 'price' },
+      { text: 'Shadow Size', filterable: false, value: 'shadow_size' },
+      { text: 'Swimming Pattern', filterable: false, value: 'swimming_pattern' },
+      { text: 'Time Range', filterable: false, value: 'time' },
+      { text: 'Months', filterable: false, value: 'month_names' },
+      { text: 'Hemisphere', filterable: false, value: 'hemisphere' },
+      { text: 'Donated?', filterable: false, value: 'donated' },
+    ],
+
   },
 
   methods: {
@@ -204,6 +245,25 @@ var app = new Vue({
         });
 
         vm.bug_data = formatted_data;
+      });
+    },
+
+    getDeepSeaCreatureData: function() {
+      var vm = this;
+      $.ajax({
+        url: 'https://raw.githubusercontent.com/gohkhoonhiang/ac_nh_critters/master/data/combined_deep_sea_creature.json',
+        method: 'GET'
+      }).then(function (data) {
+        var deep_sea_creature_data = JSON.parse(data).data;
+        var formatted_data = deep_sea_creature_data.map(function(row) {
+          var updated_row = row;
+          updated_row.month_names = convertMonths(row.months);
+          updated_row.hemisphere = normalizeHemisphere(row.hemisphere);
+          updated_row.donated = hasElement(vm.donated_deep_sea_creatures, updated_row.name);
+          return updated_row;
+        });
+
+        vm.deep_sea_creature_data = formatted_data;
       });
     },
 
@@ -280,6 +340,15 @@ var app = new Vue({
       vm.complete_bug_data = vm.filterComplete(vm.bug_data, vm.toggle_bug_hemisphere, vm.bug_month_filter, vm.toggle_bug_donated);
     },
 
+    filterDeepSeaCreatureData: function() {
+      var vm = this;
+      vm.current_hour_deep_sea_creature_data = vm.filterCurrentHour(vm.deep_sea_creature_data, vm.deep_sea_creature_lookup_time, vm.toggle_deep_sea_creature_hemisphere, vm.toggle_deep_sea_creature_donated);
+      vm.outgoing_deep_sea_creature_data = vm.filterOutgoing(vm.deep_sea_creature_data, vm.toggle_deep_sea_creature_hemisphere);
+      vm.incoming_deep_sea_creature_data = vm.filterIncoming(vm.deep_sea_creature_data, vm.toggle_deep_sea_creature_hemisphere);
+      vm.this_month_deep_sea_creature_data = vm.filterThisMonth(vm.deep_sea_creature_data, vm.toggle_deep_sea_creature_hemisphere, vm.toggle_deep_sea_creature_new_this_month, vm.toggle_deep_sea_creature_donated);
+      vm.complete_deep_sea_creature_data = vm.filterComplete(vm.deep_sea_creature_data, vm.toggle_deep_sea_creature_hemisphere, vm.deep_sea_creature_month_filter, vm.toggle_deep_sea_creature_donated);
+    },
+
     newThisMonth: function(row) {
       var vm = this;
       var last_month = vm.now.getMonth();
@@ -321,6 +390,19 @@ var app = new Vue({
       }
     },
 
+    updateDonatedDeepSeaCreature: function(row) {
+      var vm = this;
+      if (row.donated) {
+        if (!hasElement(vm.donated_deep_sea_creatures, row.name)) {
+          vm.donated_deep_sea_creatures = addElement(vm.donated_deep_sea_creatures, row.name);
+        }
+      } else {
+        if (hasElement(vm.donated_deep_sea_creatures, row.name)) {
+          vm.donated_deep_sea_creatures = removeElement(vm.donated_deep_sea_creatures, row.name);
+        }
+      }
+    },
+
     clearCurrentHourFishFilters: function() {
       var vm = this;
       vm.current_hour_fish_search = '';
@@ -343,6 +425,18 @@ var app = new Vue({
       var vm = this;
       vm.bug_search = '';
       vm.bug_month_filter = null;
+    },
+
+    clearCurrentHourDeepSeaCreatureFilters: function() {
+      var vm = this;
+      vm.current_hour_deep_sea_creature_search = '';
+      vm.deep_sea_creature_lookup_time_input = '';
+    },
+
+    clearAllDeepSeaCreatureFilters: function() {
+      var vm = this;
+      vm.deep_sea_creature_search = '';
+      vm.deep_sea_creature_month_filter = null;
     },
 
     retrieveSettings: function() {
@@ -375,20 +469,35 @@ var app = new Vue({
         incoming_bug_data: vm.incoming_bug_data,
         this_month_bug_data: vm.this_month_bug_data,
         complete_bug_data: vm.complete_bug_data,
+        deep_sea_creature_data: vm.deep_sea_creature_data,
+        northern_deep_sea_creature_data: vm.northern_deep_sea_creature_data,
+        southern_deep_sea_creature_data: vm.southern_deep_sea_creature_data,
+        current_hour_deep_sea_creature_data: vm.current_hour_deep_sea_creature_data,
+        outgoing_deep_sea_creature_data: vm.outgoing_deep_sea_creature_data,
+        incoming_deep_sea_creature_data: vm.incoming_deep_sea_creature_data,
+        this_month_deep_sea_creature_data: vm.this_month_deep_sea_creature_data,
+        complete_deep_sea_creature_data: vm.complete_deep_sea_creature_data,
         toggle_fish_hemisphere: vm.toggle_fish_hemisphere,
         toggle_fish_donated: vm.toggle_fish_donated,
         toggle_bug_hemisphere: vm.toggle_bug_hemisphere,
         toggle_bug_donated: vm.toggle_bug_donated,
+        toggle_deep_sea_creature_hemisphere: vm.toggle_deep_sea_creature_hemisphere,
+        toggle_deep_sea_creature_donated: vm.toggle_deep_sea_creature_donated,
         fish_high_price_threshold: vm.fish_high_price_threshold,
         bug_high_price_threshold: vm.bug_high_price_threshold,
+        deep_sea_creature_high_price_threshold: vm.deep_sea_creature_high_price_threshold,
         fish_month_filter: vm.fish_month_filter,
         bug_month_filter: vm.bug_month_filter,
+        deep_sea_creature_month_filter: vm.deep_sea_creature_month_filter,
         fish_group_by: vm.fish_group_by,
         current_hour_fish_group_by: vm.current_hour_fish_group_by,
         bug_group_by: vm.bug_group_by,
         current_hour_bug_group_by: vm.current_hour_bug_group_by,
+        deep_sea_creature_group_by: vm.deep_sea_creature_group_by,
+        current_hour_deep_sea_creature_group_by: vm.current_hour_deep_sea_creature_group_by,
         donated_fishes: vm.donated_fishes,
         donated_bugs: vm.donated_bugs,
+        donated_deep_sea_creatures: vm.donated_deep_sea_creatures,
       };
 
       localStorage.setItem('ac_nh_critters_settings', JSON.stringify(settings));
@@ -424,6 +533,14 @@ var app = new Vue({
       }
     },
 
+    deep_sea_creature_data: function(new_val, old_val) {
+      var vm = this;
+      if (new_val.length > 0) {
+        vm.filterDeepSeaCreatureData();
+        vm.storeSettings();
+      }
+    },
+
     fish_lookup_time_input: function(new_val, old_val) {
       var vm = this;
       if (new_val) {
@@ -443,6 +560,17 @@ var app = new Vue({
         vm.bug_lookup_time = vm.now;
       }
       vm.filterBugData();
+      vm.storeSettings();
+    },
+
+    deep_sea_creature_lookup_time_input: function(new_val, old_val) {
+      var vm = this;
+      if (new_val) {
+        vm.deep_sea_creature_lookup_time = generateDate(new_val);
+      } else {
+        vm.deep_sea_creature_lookup_time = vm.now;
+      }
+      vm.filterDeepSeaCreatureData();
       vm.storeSettings();
     },
 
@@ -482,12 +610,35 @@ var app = new Vue({
       vm.storeSettings();
     },
 
+    toggle_deep_sea_creature_hemisphere: function(new_val, old_val) {
+      var vm = this;
+      vm.filterDeepSeaCreatureData();
+      vm.storeSettings();
+    },
+
+    toggle_deep_sea_creature_new_this_month: function(new_val, old_val) {
+      var vm = this;
+      vm.filterDeepSeaCreatureData();
+      vm.storeSettings();
+    },
+
+    toggle_deep_sea_creature_donated: function(new_val, old_val) {
+      var vm = this;
+      vm.filterDeepSeaCreatureData();
+      vm.storeSettings();
+    },
+
     fish_high_price_threshold: function(new_val, old_val) {
       var vm = this;
       vm.storeSettings();
     },
 
     bug_high_price_threshold: function(new_val, old_val) {
+      var vm = this;
+      vm.storeSettings();
+    },
+
+    deep_sea_creature_high_price_threshold: function(new_val, old_val) {
       var vm = this;
       vm.storeSettings();
     },
@@ -501,6 +652,12 @@ var app = new Vue({
     bug_month_filter: function(new_val, old_val) {
       var vm = this;
       vm.filterBugData();
+      vm.storeSettings();
+    },
+
+    deep_sea_creature_month_filter: function(new_val, old_val) {
+      var vm = this;
+      vm.filterDeepSeaCreatureData();
       vm.storeSettings();
     },
 
@@ -524,6 +681,16 @@ var app = new Vue({
       vm.storeSettings();
     },
 
+    deep_sea_creature_group_by: function(new_val, old_val) {
+      var vm = this;
+      vm.storeSettings();
+    },
+
+    current_hour_deep_sea_creature_group_by: function(new_val, old_val) {
+      var vm = this;
+      vm.storeSettings();
+    },
+
     donated_fishes: function(new_val, old_val) {
       var vm = this;
       vm.filterFishData();
@@ -533,6 +700,12 @@ var app = new Vue({
     donated_bugs: function(new_val, old_val) {
       var vm = this;
       vm.filterBugData();
+      vm.storeSettings();
+    },
+
+    donated_deep_sea_creatures: function(new_val, old_val) {
+      var vm = this;
+      vm.filterDeepSeaCreatureData();
       vm.storeSettings();
     },
 
