@@ -1,4 +1,4 @@
-var latest_data_version = 'acff839';
+var latest_data_version = 'c38b979';
 
 var month_names = [
   "Jan",
