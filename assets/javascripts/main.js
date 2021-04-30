@@ -364,6 +364,15 @@ var app = new Vue({
       }
     },
 
+    updateDonatedForAllHemispheres: function(data, row) {
+      var vm = this;
+      var the_other_hemisphere = row.hemisphere == 'N' ? 'S' : 'N';
+      var the_other_row = data.find(d => d.name === row.name && d.hemisphere === the_other_hemisphere);
+      if (the_other_row) {
+        the_other_row.donated = row.donated;
+      }
+    },
+
     updateDonatedFish: function(row) {
       var vm = this;
       if (row.donated) {
@@ -375,6 +384,7 @@ var app = new Vue({
           vm.donated_fishes = removeElement(vm.donated_fishes, row.name);
         }
       }
+      vm.updateDonatedForAllHemispheres(vm.fish_data, row);
     },
 
     updateDonatedBug: function(row) {
@@ -388,6 +398,7 @@ var app = new Vue({
           vm.donated_bugs = removeElement(vm.donated_bugs, row.name);
         }
       }
+      vm.updateDonatedForAllHemispheres(vm.bug_data, row);
     },
 
     updateDonatedDeepSeaCreature: function(row) {
@@ -401,6 +412,7 @@ var app = new Vue({
           vm.donated_deep_sea_creatures = removeElement(vm.donated_deep_sea_creatures, row.name);
         }
       }
+      vm.updateDonatedForAllHemispheres(vm.deep_sea_creature_data, row);
     },
 
     clearCurrentHourFishFilters: function() {

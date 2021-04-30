@@ -321,9 +321,9 @@
 
                         <template v-slot:item.donated="{ item }">
                           <v-switch
-                            :id="'current_hour_fish_' + item.name + '_' + item.hemisphere"
+                            :key="'current_hour_fish_' + item.name + '_' + item.hemisphere"
                             v-model="item.donated"
-                            :change="updateDonatedFish(item)"
+                            @click="updateDonatedFish(item)"
                           ></v-switch>
                         </template>
 
@@ -475,9 +475,9 @@
 
                         <template v-slot:item.donated="{ item }">
                           <v-switch
-                            :id="'this_month_fish_' + item.name + '_' + item.hemisphere"
+                            :key="'this_month_fish_' + item.name + '_' + item.hemisphere"
                             v-model="item.donated"
-                            :change="updateDonatedFish(item)"
+                            @click="updateDonatedFish(item)"
                           ></v-switch>
                         </template>
 
@@ -515,9 +515,9 @@
 
                         <template v-slot:item.donated="{ item }">
                           <v-switch
-                            :id="'outgoing_fish_' + item.name + '_' + item.hemisphere"
+                            :key="'outgoing_fish_' + item.name + '_' + item.hemisphere"
                             v-model="item.donated"
-                            :change="updateDonatedFish(item)"
+                            @click="updateDonatedFish(item)"
                           ></v-switch>
                         </template>
 
@@ -555,9 +555,9 @@
 
                         <template v-slot:item.donated="{ item }">
                           <v-switch
-                            :id="'incoming_fish_' + item.name + '_' + item.hemisphere"
+                            :key="'incoming_fish_' + item.name + '_' + item.hemisphere"
                             v-model="item.donated"
-                            :change="updateDonatedFish(item)"
+                            @click="updateDonatedFish(item)"
                           ></v-switch>
                         </template>
 
@@ -714,9 +714,9 @@
 
                         <template v-slot:item.donated="{ item }">
                           <v-switch
-                            :id="'complete_fish_' + item.name + '_' + item.hemisphere"
+                            :key="'complete_fish_' + item.name + '_' + item.hemisphere"
                             v-model="item.donated"
-                            :change="updateDonatedFish(item)"
+                            @click="updateDonatedFish(item)"
                           ></v-switch>
                         </template>
 
@@ -940,9 +940,9 @@
 
                         <template v-slot:item.donated="{ item }">
                           <v-switch
-                            :id="'current_hour_bug_' +item.name + '_' + item.hemisphere"
+                            :key="'current_hour_bug_' +item.name + '_' + item.hemisphere"
                             v-model="item.donated"
-                            :change="updateDonatedBug(item)"
+                            @click="updateDonatedBug(item)"
                           ></v-switch>
                         </template>
 
@@ -1094,9 +1094,9 @@
 
                         <template v-slot:item.donated="{ item }">
                           <v-switch
-                            :id="'this_month_bug_' + item.name + '_' + item.hemisphere"
+                            :key="'this_month_bug_' + item.name + '_' + item.hemisphere"
                             v-model="item.donated"
-                            :change="updateDonatedBug(item)"
+                            @click="updateDonatedBug(item)"
                           ></v-switch>
                         </template>
 
@@ -1134,9 +1134,9 @@
 
                         <template v-slot:item.donated="{ item }">
                           <v-switch
-                            :id="'outgoing_bug_' +item.name + '_' + item.hemisphere"
+                            :key="'outgoing_bug_' +item.name + '_' + item.hemisphere"
                             v-model="item.donated"
-                            :change="updateDonatedBug(item)"
+                            @click="updateDonatedBug(item)"
                           ></v-switch>
                         </template>
 
@@ -1174,9 +1174,9 @@
 
                         <template v-slot:item.donated="{ item }">
                           <v-switch
-                            :id="'incoming_bug_' + item.name + '_' + item.hemisphere"
+                            :key="'incoming_bug_' + item.name + '_' + item.hemisphere"
                             v-model="item.donated"
-                            :change="updateDonatedBug(item)"
+                            @click="updateDonatedBug(item)"
                           ></v-switch>
                         </template>
 
@@ -1332,9 +1332,9 @@
 
                         <template v-slot:item.donated="{ item }">
                           <v-switch
-                            :id="'complete_bug_' + item.name + '_' + item.hemisphere"
+                            :key="'complete_bug_' + item.name + '_' + item.hemisphere"
                             v-model="item.donated"
-                            :change="updateDonatedBug(item)"
+                            @click="updateDonatedBug(item)"
                           ></v-switch>
                         </template>
 
@@ -1558,9 +1558,9 @@
 
                         <template v-slot:item.donated="{ item }">
                           <v-switch
-                            :id="'current_hour_deep_sea_creature_' + item.name + '_' + item.hemisphere"
+                            :key="'current_hour_deep_sea_creature_' + item.name + '_' + item.hemisphere"
                             v-model="item.donated"
-                            :change="updateDonatedFish(item)"
+                            @click="updateDonatedFish(item)"
                           ></v-switch>
                         </template>
 
@@ -1712,9 +1712,9 @@
 
                         <template v-slot:item.donated="{ item }">
                           <v-switch
-                            :id="'this_month_deep_sea_creature_' + item.name + '_' + item.hemisphere"
+                            :key="'this_month_deep_sea_creature_' + item.name + '_' + item.hemisphere"
                             v-model="item.donated"
-                            :change="updateDonatedFish(item)"
+                            @click="updateDonatedFish(item)"
                           ></v-switch>
                         </template>
 
@@ -1752,9 +1752,9 @@
 
                         <template v-slot:item.donated="{ item }">
                           <v-switch
-                            :id="'outgoing_deep_sea_creature_' + item.name + '_' + item.hemisphere"
+                            :key="'outgoing_deep_sea_creature_' + item.name + '_' + item.hemisphere"
                             v-model="item.donated"
-                            :change="updateDonatedFish(item)"
+                            @click="updateDonatedFish(item)"
                           ></v-switch>
                         </template>
 
@@ -1792,9 +1792,9 @@
 
                         <template v-slot:item.donated="{ item }">
                           <v-switch
-                            :id="'incoming_deep_sea_creature_' + item.name + '_' + item.hemisphere"
+                            :key="'incoming_deep_sea_creature_' + item.name + '_' + item.hemisphere"
                             v-model="item.donated"
-                            :change="updateDonatedFish(item)"
+                            @click="updateDonatedFish(item)"
                           ></v-switch>
                         </template>
 
@@ -1951,9 +1951,9 @@
 
                         <template v-slot:item.donated="{ item }">
                           <v-switch
-                            :id="'complete_deep_sea_creature_' + item.name + '_' + item.hemisphere"
+                            :key="'complete_deep_sea_creature_' + item.name + '_' + item.hemisphere"
                             v-model="item.donated"
-                            :change="updateDonatedFish(item)"
+                            @click="updateDonatedFish(item)"
                           ></v-switch>
                         </template>
 
